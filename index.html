@@ -10,8 +10,8 @@
   <style>
     @font-face {
       font-family: 'Jameel Noori Nastaleeq';
-      src: url('/fonts/JameelNooriNastaleeqRegular.ttf') format('truetype'),
-           url('/imgapi/fonts/JameelNooriNastaleeqRegular.ttf') format('truetype'),
+      src: url('fonts/JameelNooriNastaleeqRegular.ttf') format('truetype'),
+           url('fonts/JameelNooriNastaleeqRegular.ttf') format('truetype'),
            local('Jameel Noori Nastaleeq'),
            local('JameelNooriNastaleeqRegular');
       font-weight: normal;
@@ -20,8 +20,8 @@
 
     @font-face {
       font-family: 'UL Sajid Heading';
-      src: url('/fonts/ULSajidHeadingRegular.ttf') format('truetype'),
-           url('/imgapi/fonts/ULSajidHeadingRegular.ttf') format('truetype'),
+      src: url('fonts/ULSajidHeadingRegular.ttf') format('truetype'),
+           url('fonts/ULSajidHeadingRegular.ttf') format('truetype'),
            local('UL Sajid Heading'),
            local('ULSajidHeadingRegular');
       font-weight: normal;
@@ -30,9 +30,9 @@
 
     @font-face {
       font-family: 'Urdu Najd v3 Regular';
-      src: url('/fonts/UrduNajdv3Regular.ttf') format('truetype'),
-           url('/fonts/Urdu%20Najd%20v3%20Regular.ttf') format('truetype'),
-           url('/imgapi/fonts/UrduNajdv3Regular.ttf') format('truetype'),
+      src: url('fonts/UrduNajdv3Regular.ttf') format('truetype'),
+           url('fonts/Urdu%20Najd%20v3%20Regular.ttf') format('truetype'),
+           url('fonts/UrduNajdv3Regular.ttf') format('truetype'),
            local('Urdu Najd v3 Regular'),
            local('UrduNajdv3');
       font-weight: normal;
@@ -58,7 +58,7 @@
     <style>
     @font-face {
       font-family: 'ErasITC-Bold';
-      src: url('/fonts/ErasITC-Bold.ttf') format('truetype'),
+      src: url('fonts/ErasITC-Bold.ttf') format('truetype'),
            url('file:///opt/imgapi-backend/fonts/ErasITC-Bold.ttf') format('truetype'),
            local('Eras ITC Bold'), local('Eras Bold ITC'), local('ErasITC-Bold');
       font-weight: bold;
@@ -67,9 +67,9 @@
 
     @font-face {
       font-family: 'Urdu Najd v3 Regular';
-      src: url('/fonts/UrduNajdv3Regular.ttf') format('truetype'),
-           url('/fonts/Urdu%20Najd%20v3%20Regular.ttf') format('truetype'),
-           url('/imgapi/fonts/UrduNajdv3Regular.ttf') format('truetype'),
+      src: url('fonts/UrduNajdv3Regular.ttf') format('truetype'),
+           url('fonts/Urdu%20Najd%20v3%20Regular.ttf') format('truetype'),
+           url('fonts/UrduNajdv3Regular.ttf') format('truetype'),
            local('Urdu Najd v3 Regular'),
            local('UrduNajdv3');
       font-weight: normal;
@@ -84,7 +84,7 @@
   <header class="border-b border-[#1e293b] bg-[#0f172a]/90 backdrop-blur-md sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
       <div class="flex items-center gap-3">
-        <img src="/southtodaylogo.png" onerror="this.src='/imgapi/southtodaylogo.png'" alt="South Today Logo" class="h-10 w-auto rounded shadow-md object-contain border border-red-900/40">
+        <img src="southtodaylogo.png" onerror="this.src='southtodaylogo.png'" alt="South Today Logo" class="h-10 w-auto rounded shadow-md object-contain border border-red-900/40">
         <div>
           <h1 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
             South Today
@@ -355,13 +355,13 @@
             </div>
 
             <!-- Output Image -->
-            <img id="previewImg" src="/imgapi/outputs/test_render.png" onerror="this.onerror=null; this.src='/imgapi/test_render.png'" alt="Rendered Poster" 
+            <img id="previewImg" src="https://editor.jamshedrizwani.com/imgapi/outputs/test_render.png" onerror="this.onerror=null; this.src='https://editor.jamshedrizwani.com/imgapi/test_render.png'" alt="Rendered Poster" 
               class="w-full h-full object-contain transition-transform duration-300">
           </div>
 
           <!-- Action Buttons -->
           <div class="mt-5 flex flex-wrap gap-3">
-            <a id="downloadBtn" href="/imgapi/outputs/test_render.png" download="south_today_poster.png"
+            <a id="downloadBtn" href="https://editor.jamshedrizwani.com/imgapi/outputs/test_render.png" download="south_today_poster.png"
               class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-4 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition-all text-sm">
               <span class="material-symbols-outlined text-lg">download</span>
               <span>ڈاؤن لوڈ کریں (Download HD Poster)</span>
@@ -1222,7 +1222,7 @@
       // Central War Confrontation Image (Layer 2)
       bgImageEnabled: true,
       bgImage: {
-        src: '/templates/template2_sample_bg.png',
+        src: 'templates/template2_sample_bg.png',
         img: null,
         opacity: 0.85,
         flipH: false,
@@ -1242,8 +1242,8 @@
           enabled: true,
           aboveRibbon: true,
           flipH: false,
-          src: '/templates/template2_sample_cutout.png',
-          originalSrc: '/templates/template2_sample_cutout.png',
+          src: 'templates/template2_sample_cutout.png',
+          originalSrc: 'templates/template2_sample_cutout.png',
           img: null,
           x: 460,
           y: 540,
@@ -1351,16 +1351,16 @@
       // 1. Base Royal Blue Halftone Dot Background
       t2State.bgBaseImg = new Image();
       t2State.bgBaseImg.crossOrigin = 'anonymous';
-      t2State.bgBaseImg.src = '/templates/template2_bg.png';
+      t2State.bgBaseImg.src = 'templates/template2_bg.png';
       t2State.bgBaseImg.onload = () => renderT2Canvas();
       t2State.bgBaseImg.onerror = () => {
-        t2State.bgBaseImg.src = '/templates/template2_bg.jpg';
+        t2State.bgBaseImg.src = 'templates/template2_bg.jpg';
       };
 
       // 2. Footer Social Icons
       t2State.socialIconsImg = new Image();
       t2State.socialIconsImg.crossOrigin = 'anonymous';
-      t2State.socialIconsImg.src = '/templates/social_icons.png';
+      t2State.socialIconsImg.src = 'templates/social_icons.png';
       t2State.socialIconsImg.onload = () => renderT2Canvas();
 
       // 3. War Background Image (Layer 2)
@@ -2624,8 +2624,8 @@
           enabled: true,
           aboveRibbon: true,
           flipH: false,
-          src: '/templates/template2_sample_cutout.png',
-          originalSrc: '/templates/template2_sample_cutout.png',
+          src: 'templates/template2_sample_cutout.png',
+          originalSrc: 'templates/template2_sample_cutout.png',
           img: null,
           x: 460,
           y: 540,
