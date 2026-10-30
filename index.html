@@ -1,0 +1,2973 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>South Today | Urdu News Poster & Image API Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Jameel Noori Nastaleeq';
+      src: url('/fonts/JameelNooriNastaleeqRegular.ttf') format('truetype'),
+           url('/imgapi/fonts/JameelNooriNastaleeqRegular.ttf') format('truetype'),
+           local('Jameel Noori Nastaleeq'),
+           local('JameelNooriNastaleeqRegular');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'UL Sajid Heading';
+      src: url('/fonts/ULSajidHeadingRegular.ttf') format('truetype'),
+           url('/imgapi/fonts/ULSajidHeadingRegular.ttf') format('truetype'),
+           local('UL Sajid Heading'),
+           local('ULSajidHeadingRegular');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Urdu Najd v3 Regular';
+      src: url('/fonts/UrduNajdv3Regular.ttf') format('truetype'),
+           url('/fonts/Urdu%20Najd%20v3%20Regular.ttf') format('truetype'),
+           url('/imgapi/fonts/UrduNajdv3Regular.ttf') format('truetype'),
+           local('Urdu Najd v3 Regular'),
+           local('UrduNajdv3');
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    body { font-family: 'Inter', sans-serif; }
+    .nastaliq { font-family: 'Jameel Noori Nastaleeq', 'JameelNooriNastaleeqRegular', 'Noto Nastaliq Urdu', serif; }
+    .sajid-heading { font-family: 'UL Sajid Heading', 'ULSajidHeadingRegular', sans-serif; }
+    .najd-heading { font-family: 'Urdu Najd v3 Regular', 'UrduNajdv3', 'UL Sajid Heading', sans-serif; }
+    .code-font { font-family: 'Fira Code', monospace; }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(51, 65, 85, 0.7);
+    }
+  </style>
+
+    <!-- MediaPipe Selfie Segmentation for AI Person Background Removal -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/selfie_segmentation.js"></script>
+
+    <style>
+    @font-face {
+      font-family: 'ErasITC-Bold';
+      src: url('/fonts/ErasITC-Bold.ttf') format('truetype'),
+           url('file:///opt/imgapi-backend/fonts/ErasITC-Bold.ttf') format('truetype'),
+           local('Eras ITC Bold'), local('Eras Bold ITC'), local('ErasITC-Bold');
+      font-weight: bold;
+      font-style: normal;
+    }
+
+    @font-face {
+      font-family: 'Urdu Najd v3 Regular';
+      src: url('/fonts/UrduNajdv3Regular.ttf') format('truetype'),
+           url('/fonts/Urdu%20Najd%20v3%20Regular.ttf') format('truetype'),
+           url('/imgapi/fonts/UrduNajdv3Regular.ttf') format('truetype'),
+           local('Urdu Najd v3 Regular'),
+           local('UrduNajdv3');
+      font-weight: normal;
+      font-style: normal;
+    }
+    .najd-heading { font-family: 'Urdu Najd v3 Regular', 'UrduNajdv3', 'UL Sajid Heading', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#090d16] text-[#e2e8f0] min-h-screen">
+
+  <!-- Header -->
+  <header class="border-b border-[#1e293b] bg-[#0f172a]/90 backdrop-blur-md sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/southtodaylogo.png" onerror="this.src='/imgapi/southtodaylogo.png'" alt="South Today Logo" class="h-10 w-auto rounded shadow-md object-contain border border-red-900/40">
+        <div>
+          <h1 class="text-lg font-bold text-white tracking-tight flex items-center gap-2">
+            South Today
+            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-red-500/20 text-red-400 border border-red-500/30">Poster API</span>
+          </h1>
+          <p class="text-xs text-gray-400">Automated 1080&times;1080 Urdu News Poster Generator</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-full text-xs font-medium text-emerald-400">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          API Online (3333)
+        </div>
+        <a href="#api-docs" class="text-xs font-semibold text-gray-300 hover:text-white bg-[#1e293b] hover:bg-[#334155] px-3.5 py-1.5 rounded-lg transition-all border border-gray-700">
+          n8n Docs
+        </a>
+      </div>
+    </div>
+  </header>
+    <!-- Dual-Template Navigation Bar -->
+    <div class="bg-[#0b1222] border-b border-[#1e293b] px-4 py-2.5">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2 bg-[#090d16] p-1.5 rounded-xl border border-[#334155] shadow-lg">
+          <button type="button" id="tabBtnTpl1" onclick="switchTemplate('template1')" 
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md shadow-red-600/30">
+            <span class="material-symbols-outlined text-sm">dashboard</span>
+            <span>ٹیمپلیٹ 1 (South Today Classic)</span>
+          </button>
+          <button type="button" id="tabBtnTpl2" onclick="switchTemplate('template2')" 
+            class="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-[#1e293b]">
+            <span class="material-symbols-outlined text-sm">view_quilt</span>
+            <span>ٹیمپلیٹ 2 (ملتان / یلو ہیڈر)</span>
+            <span class="bg-amber-400/20 text-amber-300 text-[10px] px-1.5 py-0.5 rounded-md border border-amber-400/30 font-mono">PSD HD</span>
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1.5 rounded-full text-xs font-medium text-emerald-400">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>API Online (3333)</span>
+          </div>
+          <span class="text-xs text-gray-400 hidden sm:inline">ماؤس سے کینوس پر موجود سرخی یا تصویر کو پکڑ کر گھسیٹیں | تصویر پر کلک کر کے 'B' دبائیں (بیک گراؤنڈ ریموو)</span>
+        </div>
+      </div>
+    </div>
+
+
+  <!-- Main Content -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
+    <!-- BEGIN TEMPLATE 1 VIEW (South Today Classic) -->
+    <div id="template1View">
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+      <!-- Left Form Column (Lg: 6 cols) -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="glass-card rounded-2xl p-6 shadow-xl relative overflow-hidden">
+          <div class="flex items-center justify-between mb-6 pb-4 border-b border-[#1e293b]">
+            <h2 class="text-base font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-red-500">tune</span>
+              پوسٹر جنریٹر کنفیگریشن
+            </h2>
+            <span class="text-xs text-gray-400 code-font">1080 &times; 1350 px (HD 4:5)</span>
+          </div>
+
+          <form id="posterForm" class="space-y-5" onsubmit="generatePoster(event)">
+
+            <!-- 1. Background Image Source -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-2">
+                1. خبر کی تصویر (News Photo / Person Image)
+              </label>
+              <div class="space-y-2">
+                <div class="relative">
+                  <span class="absolute inset-y-0 right-3 flex items-center pointer-events-none text-gray-400 material-symbols-outlined text-lg">link</span>
+                  <input type="url" id="imageUrl" placeholder="https://example.com/photo.jpg" 
+                    value="https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=1080&auto=format&fit=crop&q=80"
+                    class="w-full bg-[#090d16] border border-[#334155] focus:border-red-500 rounded-xl pr-10 pl-4 py-2.5 text-sm text-gray-200 outline-none transition-all placeholder:text-gray-600 ltr text-left" dir="ltr">
+                </div>
+                <div class="flex items-center justify-between text-xs text-gray-400">
+                  <span>یا ڈیوائس سے فائل اپلوڈ کریں:</span>
+                  <label class="cursor-pointer text-red-400 hover:text-red-300 font-medium">
+                    <input type="file" id="imageFile" accept="image/*" class="hidden" onchange="handleFileUpload(event)">
+                    <span>+ فائل منتخب کریں</span>
+                  </label>
+                </div>
+                <div id="fileUploadNotice" class="hidden text-xs bg-red-500/10 border border-red-500/20 text-red-300 p-2 rounded-lg items-center justify-between">
+                  <span id="fileNameDisplay" class="truncate max-w-[280px]"></span>
+                  <button type="button" onclick="clearUploadedFile()" class="text-gray-400 hover:text-red-400">&times;</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Category / Speaker Name / Tag -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="text-xs font-semibold text-gray-300">
+                  2. کیٹیگری / نام / بریکنگ نیوز (Category / Tag / Name)
+                </label>
+                <span class="text-[11px] text-amber-400">فونٹ: <strong>Urdu Najd v3 Regular</strong></span>
+              </div>
+              <input type="text" id="category" value="فیاض الحسن چوہان"
+                class="najd-heading w-full bg-[#090d16] border border-[#334155] focus:border-red-500 rounded-xl px-4 py-2 text-2xl text-white outline-none transition-all text-right font-bold"
+                placeholder="مثلاً: فیاض الحسن چوہان، محسن نقوی، بریکنگ نیوز...">
+
+              <!-- Category Typography Auto-Adjust & Fine-Tuning Controls -->
+              <div class="mt-2.5 pt-2.5 border-t border-[#1e293b] bg-[#0c1222]/80 rounded-xl p-3 space-y-2 border border-red-500/20">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-gray-200 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm text-red-400">straighten</span>
+                    ربن کی لمبائی اور فونٹ سائز (Ribbon Length & Size)
+                  </span>
+                  <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-medium">
+                    خودکار لمبائی اور ایڈجسٹ (Auto-Fit Single Line)
+                  </span>
+                </div>
+                <div class="flex items-center justify-between gap-3">
+                  <div class="flex items-center gap-2">
+                    <label class="text-[11px] font-medium text-gray-300">فونٹ سائز (Font Size):</label>
+                    <span id="categoryFontSizeDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">خودکار (Auto)</span>
+                  </div>
+                  <div class="flex items-center gap-2 flex-1 max-w-[210px]">
+                    <input type="range" id="categoryFontSizeInput" min="32" max="75" value="0" step="1"
+                      class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-red-500 border border-gray-700"
+                      oninput="onCategoryFontSizeChange(this.value)">
+                    <button type="button" onclick="resetCategoryFontSize()" class="text-[10px] text-gray-400 hover:text-white bg-[#1e293b] hover:bg-[#334155] px-2 py-0.5 rounded border border-gray-700 transition-colors">Auto</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Headline Text (Nastaliq + Sajid Heading) -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label class="text-xs font-semibold text-gray-300">
+                  3. سرخی / خبر کا ٹیکسٹ (Headline)
+                </label>
+                <span class="text-[11px] text-amber-400">* لفظ کے گرد لگانے سے (UL Sajid Heading) پیلا ہوگا *</span>
+              </div>
+              <textarea id="headline" rows="3" required
+                class="nastaliq w-full bg-[#090d16] border border-[#334155] focus:border-red-500 rounded-xl p-3.5 text-2xl text-white outline-none transition-all resize-y leading-relaxed text-right"
+                placeholder="یہاں اردو سرخی درج کریں...">*لانگ مارچ* شروع ہونے کے
+بعد اب پی ٹی آئی سے کوئی مذاکرات
+نہیں ہوں گے</textarea>
+              <div class="text-[11px] text-gray-400 flex items-center justify-between mt-1.5 px-1">
+                <span>عام فونٹ: <strong>Jameel Noori Nastaleeq</strong></span>
+                <span>ہائی لائٹ فونٹ: <strong>UL Sajid Heading</strong></span>
+              </div>
+
+              <!-- Headline Typography Fine-Tuning Controls (Font Size, Line Spacing, Edge Padding) -->
+              <div class="mt-3.5 pt-3 border-t border-[#1e293b] bg-[#0c1222]/80 rounded-xl p-3.5 space-y-3 border border-red-500/20">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-semibold text-gray-200 flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-sm text-red-400">format_size</span>
+                    سرخی کا فونٹ سائز اور لائنوں کا فاصلہ
+                  </span>
+                  <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 font-medium">
+                    جدید براڈکاسٹ اسٹائل (بڑا سائز اور متناسب فاصلہ)
+                  </span>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3.5">
+                  <!-- Font Size -->
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] font-medium text-gray-300">فونٹ سائز (Font Size):</label>
+                      <span id="fontSizeDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">خودکار (Auto)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <input type="range" id="fontSizeInput" min="65" max="125" value="0" step="1"
+                        class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-red-500 border border-gray-700"
+                        oninput="onFontSizeChange(this.value)">
+                      <button type="button" onclick="resetFontSize()" class="text-[10px] text-gray-400 hover:text-white bg-[#1e293b] hover:bg-[#334155] px-2 py-0.5 rounded border border-gray-700 transition-colors">Auto</button>
+                    </div>
+                  </div>
+
+                  <!-- Line Spacing -->
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] font-medium text-gray-300">لائنوں کا فاصلہ (Spacing):</label>
+                      <span id="lineHeightDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">خودکار (Auto)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <input type="range" id="lineHeightInput" min="1.05" max="1.50" value="0" step="0.02"
+                        class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-red-500 border border-gray-700"
+                        oninput="onLineHeightChange(this.value)">
+                      <button type="button" onclick="resetLineHeight()" class="text-[10px] text-gray-400 hover:text-white bg-[#1e293b] hover:bg-[#334155] px-2 py-0.5 rounded border border-gray-700 transition-colors">Auto</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Logo Style Selection -->
+            <div>
+              <label class="block text-xs font-semibold text-gray-300 mb-2">
+                4. لوگو کا انتخاب (Logo Selection)
+              </label>
+              <div class="grid grid-cols-2 gap-3">
+                <label class="relative flex flex-col items-center p-3 rounded-xl border cursor-pointer transition-all bg-[#090d16] border-red-500/80 ring-2 ring-red-500/40">
+                  <input type="radio" name="logoType" value="official" checked class="hidden" onchange="updateLogoType(this.value)">
+                  <div class="border-2 border-white bg-red-800 text-white font-black text-xs px-3 py-1 rounded leading-tight mb-1 text-center tracking-wider">SOUTH<br><span class="text-[9px]">TODAY</span></div>
+                  <span class="text-xs font-semibold text-white">South Today 3D</span>
+                  <span class="text-[10px] text-emerald-400 font-medium">آفیشل براڈکاسٹ (ڈیفالٹ)</span>
+                </label>
+
+                <label class="relative flex flex-col items-center justify-center p-3 rounded-xl border cursor-pointer transition-all bg-[#090d16] border-[#334155] hover:border-gray-500">
+                  <input type="radio" name="logoType" value="custom_url" class="hidden" onchange="updateLogoType(this.value)">
+                  <span class="material-symbols-outlined text-blue-400 text-2xl mb-1">add_photo_alternate</span>
+                  <span class="text-xs font-semibold text-white">کسٹم امیج لوگو</span>
+                  <span class="text-[10px] text-gray-400">Custom Image URL</span>
+                </label>
+              </div>
+
+              <!-- Custom Logo URL Field (Hidden by default) -->
+              <div id="customLogoField" class="hidden mt-3 space-y-1.5">
+                <label class="block text-xs text-gray-400">کسٹم لوگو تصویر کا لنک (PNG / WebP URL):</label>
+                <input type="url" id="customLogoUrl" placeholder="https://example.com/my-logo.png"
+                  class="w-full bg-[#090d16] border border-[#334155] focus:border-red-500 rounded-xl px-3.5 py-2 text-sm text-gray-200 outline-none ltr text-left" dir="ltr">
+              </div>
+            </div>
+
+            <!-- 5. Website & Color -->
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 mb-1.5">5. ویب سائٹ پتہ (Footer Site)</label>
+                <input type="text" id="website" value="www.southtoday.live"
+                  class="w-full bg-[#090d16] border border-[#334155] focus:border-red-500 rounded-xl px-3.5 py-2 text-sm text-gray-200 outline-none text-left" dir="ltr">
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-300 mb-1.5">ہائی لائٹ رنگ (Highlight Color)</label>
+                <div class="flex items-center gap-2 bg-[#090d16] border border-[#334155] rounded-xl px-3 py-1.5">
+                  <input type="color" id="hlColor" value="#FFE600" class="w-7 h-7 rounded border-0 bg-transparent cursor-pointer">
+                  <span id="hlColorText" class="text-xs text-gray-300 code-font">#FFE600</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="generateBtn"
+              class="w-full bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 hover:to-rose-500 text-white font-bold py-3.5 px-6 rounded-xl shadow-lg shadow-red-600/30 flex items-center justify-center gap-2 transition-all cursor-pointer">
+              <span class="material-symbols-outlined text-xl">auto_fix_high</span>
+              <span>نیا پوسٹر بنائیں (Generate HD Poster)</span>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Preview Column (Lg: 6 cols) -->
+      <div class="lg:col-span-6 space-y-6">
+        <div class="glass-card rounded-2xl p-6 shadow-xl sticky top-24">
+          <div class="flex items-center justify-between mb-4 pb-3 border-b border-[#1e293b]">
+            <h2 class="text-base font-bold text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-red-400">preview</span>
+              لائیو پوسٹر پریویو (Live Output)
+            </h2>
+            <div id="renderStats" class="text-xs text-emerald-400 code-font">HD 4:5 Active</div>
+          </div>
+
+          <!-- Poster Image Container (4:5 Aspect Ratio) -->
+          <div class="relative w-full aspect-[4/5] max-h-[640px] mx-auto bg-[#050811] rounded-xl overflow-hidden border border-[#223366] flex items-center justify-center group shadow-2xl">
+            <!-- Loading Overlay -->
+            <div id="loadingOverlay" class="hidden absolute inset-0 bg-[#0f172a]/90 backdrop-blur-sm z-30 flex flex-col items-center justify-center text-center p-6 space-y-3">
+              <div class="w-12 h-12 border-4 border-red-500/20 border-t-red-500 rounded-full animate-spin"></div>
+              <p class="text-sm font-semibold text-white">پوسٹر تیار ہو رہا ہے...</p>
+              <p class="text-xs text-gray-400">Jameel Noori Nastaleeq + UL Sajid Heading Font</p>
+            </div>
+
+            <!-- Output Image -->
+            <img id="previewImg" src="/imgapi/outputs/test_render.png" onerror="this.onerror=null; this.src='/imgapi/test_render.png'" alt="Rendered Poster" 
+              class="w-full h-full object-contain transition-transform duration-300">
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="mt-5 flex flex-wrap gap-3">
+            <a id="downloadBtn" href="/imgapi/outputs/test_render.png" download="south_today_poster.png"
+              class="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 px-4 rounded-xl shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2 transition-all text-sm">
+              <span class="material-symbols-outlined text-lg">download</span>
+              <span>ڈاؤن لوڈ کریں (Download HD Poster)</span>
+            </a>
+
+            <button type="button" onclick="copyImageUrl()"
+              class="bg-[#1e293b] hover:bg-[#334155] text-gray-200 font-semibold py-2.5 px-4 rounded-xl border border-gray-700 flex items-center justify-center gap-2 transition-all text-sm">
+              <span class="material-symbols-outlined text-lg">link</span>
+              <span>کاپی لنک</span>
+            </button>
+          </div>
+
+          <div class="mt-4 p-3 bg-[#090d16] border border-[#1b2b52] rounded-xl text-xs space-y-1 code-font ltr text-left" dir="ltr">
+            <div class="text-gray-500 flex justify-between">
+              <span>Direct URL:</span>
+              <span id="outputUrlDisplay" class="text-blue-400 truncate max-w-[280px]">/imgapi/outputs/test_render.png</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- API & n8n Documentation Section -->
+    <section id="api-docs" class="mt-14 pt-8 border-t border-[#1e293b]">
+      <div class="glass-card rounded-2xl p-8 shadow-xl space-y-8">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-semibold mb-3">
+            <span class="material-symbols-outlined text-sm">integration_instructions</span>
+            n8n Automation & Facebook Publishing Guide
+          </div>
+          <h2 class="text-2xl font-bold text-white">این این (n8n) اور فیس بک آٹومیشن اے پی آئی</h2>
+          <p class="text-gray-400 text-sm mt-1">
+            آپ n8n میں <strong>HTTP Request</strong> نوڈ کے ذریعے کسی بھی وقت نئی تصویر اور سرخی بھیج کر چند ملی سیکنڈ میں نیا پوسٹر حاصل کر سکتے ہیں۔ عام الفاظ خودکار طور پر <strong>Jameel Noori Nastaleeq</strong> اور ہائی لائٹ الفاظ <strong>UL Sajid Heading</strong> میں رینڈر ہوتے ہیں۔
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 ltr text-left" dir="ltr">
+
+          <!-- JSON Endpoint Card -->
+          <div class="bg-[#090d16] border border-[#1e293b] rounded-xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-emerald-400 px-2 py-1 rounded bg-emerald-500/10 border border-emerald-500/20">POST</span>
+              <span class="text-xs text-gray-400 code-font">Returns JSON Image URL</span>
+            </div>
+            <code class="block text-sm text-red-300 font-mono bg-[#0f172a] p-2.5 rounded-lg border border-gray-800 break-all">
+              https://editor.jamshedrizwani.com/api/generate
+            </code>
+            <p class="text-xs text-gray-400">JSON Request Body Payload:</p>
+            <pre class="bg-[#040711] p-3 rounded-lg border border-[#1a2333] text-xs text-gray-300 code-font overflow-x-auto"><code>{
+  "imageUrl": "https://southtoday.live/wp-content/uploads/news-photo.jpg",
+  "headline": "جنوبی پنجاب کے بجٹ میں *تاریخی* اضافہ",
+  "website": "www.southtoday.live",
+  "highlightWords": ["تاریخی"]
+}</code></pre>
+          </div>
+
+          <!-- Direct Binary File Endpoint (Ideal for Facebook) -->
+          <div class="bg-[#090d16] border border-[#1e293b] rounded-xl p-5 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-indigo-400 px-2 py-1 rounded bg-indigo-500/10 border border-indigo-500/20">POST (Binary File)</span>
+              <span class="text-xs text-gray-400 code-font">Direct File Stream for FB Upload</span>
+            </div>
+            <code class="block text-sm text-indigo-300 font-mono bg-[#0f172a] p-2.5 rounded-lg border border-gray-800 break-all">
+              https://editor.jamshedrizwani.com/api/generate?returnType=binary
+            </code>
+            <p class="text-xs text-gray-400">n8n Node Configuration:</p>
+            <ul class="text-xs text-gray-300 space-y-1 list-disc pl-4">
+              <li><strong>Node:</strong> HTTP Request</li>
+              <li><strong>Method:</strong> POST</li>
+              <li><strong>Response Format:</strong> File / Binary</li>
+              <li><strong>Next Node:</strong> Facebook Graph API &rarr; <code>/me/photos</code> with binary file!</li>
+            </ul>
+          </div>
+
+        </div>
+
+        <!-- cURL Example -->
+        <div class="ltr text-left" dir="ltr">
+          <label class="block text-xs font-semibold text-gray-400 mb-2">cURL Terminal Test Command:</label>
+          <pre class="bg-[#040711] p-3.5 rounded-xl border border-[#1a2333] text-xs text-emerald-400 code-font overflow-x-auto"><code>curl -X POST https://editor.jamshedrizwani.com/api/generate \
+  -H "Content-Type: application/json" \
+  -d '{
+    "imageUrl": "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?w=1080",
+    "headline": "پنجاب حکومت کا کسانوں کے لیے *بڑا پیکج*، زرعی قرضے *معاف*",
+    "website": "www.southtoday.live"
+  }'</code></pre>
+        </div>
+      </div>
+    </section>
+  
+    </div>
+    <!-- END TEMPLATE 1 VIEW -->
+
+    <!-- BEGIN TEMPLATE 2 VIEW (Multan Yellow Header & Multi-Image Layers) -->
+    <div id="template2View" class="hidden">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <!-- Left Form Column for Template 2 (6 Cols) -->
+        <div class="lg:col-span-6 space-y-6">
+          <div class="glass-card rounded-2xl p-6 shadow-xl relative overflow-hidden">
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-[#1e293b]">
+              <div>
+                <h2 class="text-base font-bold text-white flex items-center gap-2">
+                  <span class="material-symbols-outlined text-amber-400">tune</span>
+                  <span>ٹیمپلیٹ 2 کنفیگریشن (ملتان - یلو ہیڈر)</span>
+                </h2>
+                <p class="text-xs text-gray-400 mt-0.5">کینوس پر کسی بھی چیز پر کلک کر کے اسے ماؤس سے گھسیٹیں اور سائز تبدیل کریں</p>
+              </div>
+              <span class="text-xs text-amber-400 code-font bg-amber-400/10 px-2.5 py-1 rounded-full border border-amber-400/20 font-semibold">1080 &times; 1400 px (HD)</span>
+            </div>
+
+            <form id="t2Form" class="space-y-5" onsubmit="event.preventDefault(); renderT2Canvas();">
+
+              <!-- 1. Top Yellow Header (Urdu Najd) -->
+              <div id="t2CardHeader" class="bg-[#0b1222]/90 border border-amber-500/30 rounded-xl p-4 space-y-3 transition-all hover:border-amber-400/50">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-bold text-amber-300 flex items-center gap-1.5 cursor-pointer" onclick="selectCanvasObject('header')">
+                    <span class="material-symbols-outlined text-sm">badge</span>
+                    1. اوپر کا یلو ہیڈر (Top Yellow Header)
+                  </label>
+                  <span class="text-[11px] text-gray-400">فونٹ: <strong class="text-amber-300 font-mono">Urdu Najd v3</strong></span>
+                </div>
+                <input type="text" id="t2HeaderText" value="بھارتی فوج کا نقصانات کا اعتراف"
+                  class="najd-heading w-full bg-[#090d16] border border-[#334155] focus:border-amber-400 rounded-xl px-4 py-2.5 text-2xl text-white outline-none transition-all text-right font-bold"
+                  placeholder="ہیڈر کا متن..." oninput="onT2Change()">
+
+                <div class="grid grid-cols-2 gap-3 pt-2 border-t border-gray-800">
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] text-gray-400">فونٹ سائز:</label>
+                      <span id="t2HeaderFontSizeDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">46px</span>
+                    </div>
+                    <input type="range" id="t2HeaderFontSize" min="30" max="75" value="46"
+                      class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                      oninput="onT2HeaderFontChange(this.value)">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] text-gray-400 mb-1">ہیڈر بیک گراؤنڈ رنگ:</label>
+                    <div class="flex items-center gap-2 bg-[#090d16] border border-[#334155] rounded-lg px-2.5 py-1">
+                      <input type="color" id="t2HeaderBgColor" value="#FFCC00" class="w-6 h-6 rounded border-0 bg-transparent cursor-pointer" oninput="onT2Change()">
+                      <span id="t2HeaderBgColorText" class="text-xs text-gray-300 font-mono">#FFCC00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Main Headline Text (Auto-fit, Draggable, Font Switcher & Rich Word Styling) -->
+              <div id="t2CardHeadline" class="bg-[#0b1222]/90 border border-sky-500/30 rounded-xl p-4 space-y-3 transition-all hover:border-sky-400/50">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-bold text-sky-300 flex items-center gap-1.5 cursor-pointer" onclick="selectCanvasObject('headline')">
+                    <span class="material-symbols-outlined text-sm">format_size</span>
+                    2. مرکزی سرخی (Main Headline - Auto-fit & Stylable)
+                  </label>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="autoCenterHeadline()" class="text-[11px] bg-sky-500/20 text-sky-300 hover:bg-sky-500/30 border border-sky-500/30 px-2 py-0.5 rounded-full font-bold flex items-center gap-1 transition-all">
+                      <span class="material-symbols-outlined text-xs">align_horizontal_center</span>
+                      <span>آٹو سینٹر</span>
+                    </button>
+                    <span class="text-[10px] bg-sky-500/10 text-sky-300 border border-sky-500/30 px-2 py-0.5 rounded-full font-mono">ماؤس سے گھسیٹیں</span>
+                  </div>
+                </div>
+
+                <!-- Word Highlighting & Color Quick Bar -->
+                <div class="bg-[#090d16] border border-[#1e293b] rounded-lg p-2.5 space-y-2">
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <span class="text-[11px] text-gray-400 font-semibold ml-1">کسی بھی لفظ کا رنگ بدلیں:</span>
+                    <button type="button" onclick="formatHeadlineWord('yellow')" title="پیلا رنگ (*26*)"
+                      class="px-2.5 py-1 bg-amber-400 hover:bg-amber-300 text-slate-950 text-xs font-bold rounded shadow transition-all flex items-center gap-1">
+                      <span>★ پیلا</span>
+                      <span class="font-mono text-[10px] opacity-80">(*26*)</span>
+                    </button>
+                    <button type="button" onclick="formatHeadlineWord('red')" title="سرخ رنگ ({red:...})"
+                      class="px-2.5 py-1 bg-red-600 hover:bg-red-500 text-white text-xs font-bold rounded shadow transition-all">سرخ</button>
+                    <button type="button" onclick="formatHeadlineWord('cyan')" title="سیان رنگ ({cyan:...})"
+                      class="px-2.5 py-1 bg-cyan-400 hover:bg-cyan-300 text-slate-950 text-xs font-bold rounded shadow transition-all">سیان</button>
+                    <button type="button" onclick="formatHeadlineWord('green')" title="سبز رنگ ({green:...})"
+                      class="px-2.5 py-1 bg-emerald-500 hover:bg-emerald-400 text-white text-xs font-bold rounded shadow transition-all">سبز</button>
+                    <button type="button" onclick="formatHeadlineWord('orange')" title="نارنجی رنگ ({orange:...})"
+                      class="px-2.5 py-1 bg-orange-500 hover:bg-orange-400 text-white text-xs font-bold rounded shadow transition-all">نارنجی</button>
+                    <button type="button" onclick="formatHeadlineWord('white')" title="سفید رنگ"
+                      class="px-2 py-1 bg-slate-200 hover:bg-white text-slate-900 text-xs font-bold rounded shadow transition-all">سفید</button>
+                    
+                    <div class="flex items-center gap-1 bg-[#131b2e] px-2 py-0.5 rounded border border-gray-700">
+                      <input type="color" id="t2CustomWordColor" value="#FFCC00" class="w-5 h-5 rounded cursor-pointer bg-transparent border-0">
+                      <button type="button" onclick="formatHeadlineWord('custom')" class="text-[11px] text-gray-300 font-bold hover:text-white">کسٹم رنگ</button>
+                    </div>
+                  </div>
+                  <p class="text-[11px] text-gray-400 leading-normal">
+                    <span class="text-amber-400 font-bold">طریقہ:</span> سرخی میں کسی بھی لفظ (مثلاً <strong>26</strong>) کو ماؤس سے سلیکٹ کریں اور اوپر بٹن دبائیں۔ یا لفظ کے گرد <code>*26*</code> یا <code>{red:26}</code> لکھیں۔
+                  </p>
+                </div>
+
+                <!-- Quick Inline Edit & Spacing Action Buttons -->
+                <div class="flex flex-wrap items-center gap-2 mb-2">
+                  <button type="button" onclick="openHeadlineInlineEditor()"
+                    class="flex-1 py-2 px-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 text-xs font-bold rounded-lg shadow-md flex items-center justify-center gap-1.5 transition-all">
+                    <span class="material-symbols-outlined text-base">edit_note</span>
+                    <span>📝 سکرین پر کرسر سے ایڈٹ کریں (بیک سپیس سپورٹ)</span>
+                  </button>
+                  <button type="button" onclick="reduceHeadlineSpaces()"
+                    class="py-2 px-2.5 bg-[#1e293b] hover:bg-[#334155] text-amber-300 text-xs font-semibold rounded-lg border border-gray-700 flex items-center gap-1 transition-all"
+                    title="تمام فالتو ڈبل سپیسز ختم کر کے متن کو خوبصورت بنائیں">
+                    <span class="material-symbols-outlined text-sm">compress</span>
+                    <span>فالتو سپیسز ختم کریں</span>
+                  </button>
+                </div>
+
+                <!-- Textarea -->
+                <textarea id="t2Headline" rows="3"
+                  class="nastaliq w-full bg-[#090d16] border border-[#334155] focus:border-amber-400 rounded-xl p-3.5 text-2xl text-white outline-none leading-relaxed transition-all text-right shadow-inner"
+                  placeholder="سرخی کا متن لکھیں..." oninput="onT2HeadlineInputChange()">پاکستان کے تیز رفتار
+میزائل حملوں سے بھارتی
+فضائی اڈے اور *26* مقامات متاثر</textarea>
+
+                <!-- Font Family & Styling Controls -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-gray-800">
+                  <!-- Word Spacing Slider (Tighten / Loosen) -->
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] text-gray-300 font-semibold">لفظی فاصلہ (Word Spacing / ٹریکنگ):</label>
+                      <span id="t2HeadlineWordSpacingDisplay" class="text-[11px] font-mono text-amber-400 font-bold">-8px</span>
+                    </div>
+                    <input type="range" id="t2HeadlineWordSpacing" min="-30" max="30" value="-8"
+                      class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                      oninput="onT2HeadlineWordSpacingChange(this.value)">
+                    <div class="flex justify-between text-[10px] text-gray-500 mt-0.5">
+                      <span>تنگ (-30px)</span>
+                      <span class="text-amber-500 font-bold">فوٹوشاپ ڈیفالٹ (-8px)</span>
+                      <span>کھلا (+30px)</span>
+                    </div>
+                  </div>
+
+                  <!-- Photoshop Exact Drop Shadow Settings (Angle: 62 deg, Dist: 17px, Size: 16px, Opacity: 61%) -->
+                  <div class="bg-[#090d16] p-2.5 rounded-lg border border-[#1e293b] sm:col-span-2">
+                    <div class="flex items-center justify-between mb-2">
+                      <span class="text-[11px] font-bold text-amber-300 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-xs">auto_awesome</span>
+                        <span>فوٹوشاپ ڈراپ شیڈو سیٹنگز (Photoshop Exact Drop Shadow)</span>
+                      </span>
+                      <span class="text-[10px] text-gray-400 font-mono">62° / 17px / 16px / 61%</span>
+                    </div>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                      <div>
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-0.5">
+                          <span>اینگل:</span>
+                          <span id="t2ShadowAngleDisplay" class="font-mono text-amber-400">62°</span>
+                        </div>
+                        <input type="range" id="t2ShadowAngle" min="0" max="360" value="62" class="w-full h-1 accent-amber-400 cursor-pointer" oninput="onT2ShadowAngleChange(this.value)">
+                      </div>
+                      <div>
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-0.5">
+                          <span>فاصلہ:</span>
+                          <span id="t2ShadowDistanceDisplay" class="font-mono text-amber-400">17px</span>
+                        </div>
+                        <input type="range" id="t2ShadowDistance" min="0" max="40" value="17" class="w-full h-1 accent-amber-400 cursor-pointer" oninput="onT2ShadowDistanceChange(this.value)">
+                      </div>
+                      <div>
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-0.5">
+                          <span>سائز / بلر:</span>
+                          <span id="t2ShadowBlurDisplay" class="font-mono text-amber-400">16px</span>
+                        </div>
+                        <input type="range" id="t2ShadowBlur" min="0" max="40" value="16" class="w-full h-1 accent-amber-400 cursor-pointer" oninput="onT2ShadowBlurChange(this.value)">
+                      </div>
+                      <div>
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-0.5">
+                          <span>شفافیت:</span>
+                          <span id="t2ShadowOpacityDisplay" class="font-mono text-amber-400">61%</span>
+                        </div>
+                        <input type="range" id="t2ShadowOpacity" min="10" max="100" value="61" class="w-full h-1 accent-amber-400 cursor-pointer" oninput="onT2ShadowOpacityChange(this.value)">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label class="block text-[11px] text-gray-300 mb-1 font-semibold">سرخی کا فونٹ (Font Family):</label>
+                    <select id="t2HeadlineFont" onchange="onT2HeadlineFontChange(this.value)"
+                      class="w-full bg-[#090d16] border border-[#334155] focus:border-amber-400 text-white text-xs rounded-lg px-3 py-2 outline-none font-sans">
+                      <option value="Jameel Noori Nastaleeq" selected>جمیل نوری نستعلیق (Jameel Noori Nastaleeq)</option>
+                      <option value="Urdu Najd v3 Regular">اردو نجد (Urdu Najd v3 Regular)</option>
+                      <option value="UL Sajid Heading">ساجد ہیڈنگ (UL Sajid Heading)</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[11px] text-gray-300 mb-1 font-semibold">ہائی لائٹ لفظ کا فونٹ:</label>
+                    <select id="t2HighlightFont" onchange="onT2HighlightFontChange(this.value)"
+                      class="w-full bg-[#090d16] border border-[#334155] focus:border-amber-400 text-white text-xs rounded-lg px-3 py-2 outline-none font-sans">
+                      <option value="Jameel Noori Nastaleeq" selected>جمیل نوری نستعلیق (Same as headline)</option>
+                      <option value="Urdu Najd v3 Regular">اردو نجد (Urdu Najd v3 Regular)</option>
+                      <option value="UL Sajid Heading">ساجد ہیڈنگ (UL Sajid Heading)</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Sliders: Font Size, Line Spacing, Position -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t border-gray-800">
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] text-gray-400">فونٹ سائز:</label>
+                      <span id="t2HeadlineFontSizeDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">82px</span>
+                    </div>
+                    <input type="range" id="t2HeadlineFontSize" min="40" max="130" value="82"
+                      class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                      oninput="onT2HeadlineFontSizeChange(this.value)">
+                  </div>
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] text-gray-400">لائنوں کا فاصلہ:</label>
+                      <span id="t2HeadlineLineHeightDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">1.25</span>
+                    </div>
+                    <input type="range" id="t2HeadlineLineHeight" min="0.8" max="2.0" step="0.05" value="1.25"
+                      class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                      oninput="onT2HeadlineLineHeightChange(this.value)">
+                  </div>
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] text-gray-400">عمودی پوزیشن (Y):</label>
+                      <span id="t2HeadlineYDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">195px</span>
+                    </div>
+                    <input type="range" id="t2HeadlineY" min="80" max="500" value="195"
+                      class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                      oninput="onT2HeadlineYChange(this.value)">
+                  </div>
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] text-gray-400">افقی پوزیشن (X):</label>
+                      <span id="t2HeadlineXDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">540px</span>
+                    </div>
+                    <input type="range" id="t2HeadlineX" min="200" max="880" value="540"
+                      class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                      oninput="onT2HeadlineXChange(this.value)">
+                  </div>
+                </div>
+
+                <!-- Color Pickers for Main & Highlight -->
+                <div class="grid grid-cols-2 gap-3 pt-2 border-t border-gray-800">
+                  <div>
+                    <label class="block text-[11px] text-gray-400 mb-1">بنیادی متن رنگ (Main Text Color):</label>
+                    <div class="flex items-center gap-2 bg-[#090d16] border border-[#334155] rounded-lg px-2.5 py-1">
+                      <input type="color" id="t2HeadlineColor" value="#FFFFFF" class="w-6 h-6 rounded border-0 bg-transparent cursor-pointer" oninput="onT2Change()">
+                      <span id="t2HeadlineColorText" class="text-xs text-gray-300 font-mono">#FFFFFF</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-[11px] text-gray-400 mb-1">ڈیفالٹ ہائی لائٹ رنگ (*...*):</label>
+                    <div class="flex items-center gap-2 bg-[#090d16] border border-[#334155] rounded-lg px-2.5 py-1">
+                      <input type="color" id="t2HeadlineHighlightColor" value="#FFCC00" class="w-6 h-6 rounded border-0 bg-transparent cursor-pointer" oninput="onT2Change()">
+                      <span id="t2HeadlineHighlightColorText" class="text-xs text-amber-300 font-mono">#FFCC00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Multi-Image System (2 to 4 Images + War BG + AI Background Removal) -->
+              <div id="t2CardImages" class="bg-[#0b1222]/90 border border-[#334155] rounded-xl p-4 space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <label class="text-xs font-bold text-gray-200 flex items-center gap-1.5">
+                      <span class="material-symbols-outlined text-sm text-amber-400">layers</span>
+                      3. ملٹی امیج سسٹم (تصاویر ربن کے اوپر اور فوٹر کے نیچے رہیں گی)
+                    </label>
+                    <span class="text-[11px] text-gray-400">تصویریں ڈیوائڈر ربن کے اوپر اور فوٹر بار کے نیچے رینڈر ہوں گی</span>
+                  </div>
+                  <span class="text-[11px] text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded font-mono">AI Remove BG</span>
+                </div>
+
+                <!-- Overlay Selector Tabs -->
+                <div class="grid grid-cols-4 gap-2 bg-[#090d16] p-1.5 rounded-xl border border-[#1e293b]">
+                  <button type="button" id="ovTab0" onclick="selectOverlayTab(0)"
+                    class="py-1.5 px-2 rounded-lg text-xs font-bold transition-all bg-amber-400 text-slate-950 shadow">تصویر 1 (کٹ آؤٹ)</button>
+                  <button type="button" id="ovTab1" onclick="selectOverlayTab(1)"
+                    class="py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">تصویر 2</button>
+                  <button type="button" id="ovTab2" onclick="selectOverlayTab(2)"
+                    class="py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">تصویر 3</button>
+                  <button type="button" id="ovTab3" onclick="selectOverlayTab(3)"
+                    class="py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white">تصویر 4</button>
+                </div>
+
+                <!-- Active Overlay Controls -->
+                <div id="overlayConfigPanel" class="bg-[#090d16] border border-[#1e293b] rounded-xl p-3.5 space-y-3">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span id="activeOverlayTitle" class="text-xs font-bold text-amber-300">تصویر 1 کنفیگریشن</span>
+                    
+                    <div class="flex flex-wrap items-center gap-2">
+                      <!-- Above Ribbon Toggle -->
+                      <label class="flex items-center gap-1.5 cursor-pointer bg-[#131b2e] px-2 py-1 rounded border border-gray-700" title="تصویر کو ڈیوائڈر ربن کے اوپر یا نیچے رکھیں">
+                        <input type="checkbox" id="ovAboveRibbon" checked onchange="toggleOverlayAboveRibbon(this.checked)" class="w-3.5 h-3.5 rounded text-amber-500 cursor-pointer">
+                        <span class="text-[11px] text-amber-300 font-bold">ربن کے اوپر رکھیں</span>
+                      </label>
+
+                      <!-- Flip Horizontal Button -->
+                      <button type="button" id="btnFlipH" onclick="toggleActiveOverlayFlipH()"
+                        class="px-2.5 py-1 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white text-[11px] font-bold rounded-lg shadow flex items-center gap-1 transition-all"
+                        title="تصویر کا رخ دائیں سے بائیں پلٹیں (کی بورڈ پر F دبائیں)">
+                        <span class="material-symbols-outlined text-xs">flip</span>
+                        <span>رخ پلٹیں (Flip) [F]</span>
+                      </button>
+
+                      <!-- AI Remove BG Button -->
+                      <button type="button" id="btnRemoveBg" onclick="removeActiveOverlayBackground()"
+                        class="px-2.5 py-1 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white text-[11px] font-bold rounded-lg shadow flex items-center gap-1 transition-all"
+                        title="منتخب تصویر کا بیک گراؤنڈ ریموو کریں (کی بورڈ پر B دبائیں)">
+                        <span class="material-symbols-outlined text-xs">auto_fix_high</span>
+                        <span>بیک گراؤنڈ ریموو کریں (B)</span>
+                      </button>
+
+                      <button type="button" id="btnRevertBg" onclick="revertActiveOverlayOriginal()" class="hidden px-2 py-1 bg-[#1e293b] hover:bg-[#334155] text-gray-300 text-[11px] font-semibold rounded transition-all">
+                        اصل تصویر
+                      </button>
+
+                      <label class="flex items-center gap-1.5 cursor-pointer ml-1">
+                        <input type="checkbox" id="ovEnabled" checked onchange="toggleOverlayEnabled(this.checked)"
+                          class="w-4 h-4 rounded text-amber-500 focus:ring-0 cursor-pointer">
+                        <span class="text-xs text-gray-300 font-semibold">آن رکھیں</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <!-- Upload or URL -->
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div>
+                      <label class="block text-[11px] text-gray-400 mb-1">تصویر اپ لوڈ کریں (PC سے):</label>
+                      <input type="file" id="ovFileInput" accept="image/*" class="w-full text-xs text-gray-300 file:mr-2 file:py-1 file:px-2.5 file:rounded file:border-0 file:text-xs file:font-semibold file:bg-amber-400 file:text-slate-950 hover:file:bg-amber-300 cursor-pointer"
+                        onchange="handleOverlayFileUpload(event)">
+                    </div>
+                    <div>
+                      <label class="block text-[11px] text-gray-400 mb-1">یا تصویر کا URL:</label>
+                      <input type="text" id="ovUrlInput" placeholder="https://..." class="w-full bg-[#131b2e] border border-[#334155] rounded px-2.5 py-1 text-xs text-white outline-none"
+                        onchange="onOverlayUrlChange(this.value)">
+                    </div>
+                  </div>
+
+                  <!-- Sliders: Scale, X, Y, Border Radius -->
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-gray-800">
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] text-gray-400">سائز (Scale):</label>
+                        <span id="ovScaleDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">1.0x</span>
+                      </div>
+                      <input type="range" id="ovScale" min="0.2" max="2.5" step="0.05" value="1.0"
+                        class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                        oninput="onOverlayScaleChange(this.value)">
+                    </div>
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] text-gray-400">پوزیشن X:</label>
+                        <span id="ovXDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">460px</span>
+                      </div>
+                      <input type="range" id="ovX" min="-200" max="900" value="460"
+                        class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                        oninput="onOverlayPosChange('x', this.value)">
+                    </div>
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] text-gray-400">پوزیشن Y:</label>
+                        <span id="ovYDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">560px</span>
+                      </div>
+                      <input type="range" id="ovY" min="0" max="1100" value="560"
+                        class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                        oninput="onOverlayPosChange('y', this.value)">
+                    </div>
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] text-gray-400">گولائی (Radius):</label>
+                        <span id="ovRadiusDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">0px</span>
+                      </div>
+                      <input type="range" id="ovRadius" min="0" max="60" value="0"
+                        class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                        oninput="onOverlayRadiusChange(this.value)">
+                    </div>
+                  </div>
+
+                  <!-- Quick Action Buttons for Layer -->
+                  <div class="flex items-center justify-between pt-2 border-t border-gray-800 text-xs">
+                    <div class="flex items-center gap-2">
+                      <button type="button" onclick="moveActiveOverlayZ('up')" class="px-2 py-1 bg-[#1e293b] hover:bg-[#334155] rounded text-gray-300 font-semibold">اوپر لائیں ↑</button>
+                      <button type="button" onclick="moveActiveOverlayZ('down')" class="px-2 py-1 bg-[#1e293b] hover:bg-[#334155] rounded text-gray-300 font-semibold">نیچے لے جائیں ↓</button>
+                    </div>
+                    <button type="button" onclick="resetActiveOverlay()" class="text-red-400 hover:text-red-300 font-semibold">ڈیفالٹ پر ری سیٹ</button>
+                  </div>
+                </div>
+
+                <!-- Layer 2 War Background Controls -->
+                <div class="bg-[#090d16] border border-[#1e293b] rounded-xl p-3.5 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <label class="text-xs font-bold text-gray-300 flex items-center gap-1 cursor-pointer" onclick="selectCanvasObject('bgImage')">
+                      <span class="material-symbols-outlined text-sm text-gray-400">wallpaper</span>
+                      مرکزی پس منظر جنگی تصویر (War Scene / Layer 2)
+                    </label>
+                    <label class="flex items-center gap-1.5 cursor-pointer">
+                      <input type="checkbox" id="t2BgImageEnabled" checked onchange="toggleT2BgImage(this.checked)" class="w-4 h-4 rounded text-amber-500">
+                      <span class="text-xs text-gray-400">آن رکھیں</span>
+                    </label>
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-3 pt-1">
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] text-gray-400">شفافیت (Opacity):</label>
+                        <span id="t2BgOpacityDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">85%</span>
+                      </div>
+                      <input type="range" id="t2BgOpacity" min="0" max="100" value="85"
+                        class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                        oninput="onT2BgOpacityChange(this.value)">
+                    </div>
+                    <div>
+                      <label class="block text-[11px] text-gray-400 mb-1">تبدیل کریں (PC سے):</label>
+                      <input type="file" accept="image/*" class="w-full text-xs text-gray-400 file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[11px] file:bg-gray-700 file:text-white cursor-pointer"
+                        onchange="handleT2BgUpload(event)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. Divider Ribbon (SOUTH TODAY MULTAN) with On/Off Toggle -->
+              <div id="t2CardRibbon" class="bg-[#0b1222]/90 border border-[#334155] rounded-xl p-4 space-y-3">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-bold text-amber-300 flex items-center gap-1.5 cursor-pointer" onclick="selectCanvasObject('ribbon')">
+                    <span class="material-symbols-outlined text-sm">horizontal_rule</span>
+                    4. ربن بار (Divider Ribbon - SOUTH TODAY MULTAN)
+                  </label>
+                  
+                  <label class="flex items-center gap-2 cursor-pointer bg-[#090d16] px-3 py-1 rounded-lg border border-gray-800">
+                    <input type="checkbox" id="t2RibbonEnabled" checked onchange="onT2RibbonToggle(this.checked)" class="w-4 h-4 rounded text-amber-500">
+                    <span class="text-xs text-amber-300 font-bold">ربن بار دکھائیں</span>
+                  </label>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <input type="text" id="t2RibbonText" value="SOUTH TODAY MULTAN"
+                      class="w-full bg-[#090d16] border border-[#334155] rounded-xl px-3 py-2 text-sm text-amber-400 font-black outline-none font-sans tracking-widest text-center"
+                      oninput="onT2Change()">
+                  </div>
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] text-gray-400">فونٹ سائز (ErasITC-Bold):</label>
+                      <span id="t2RibbonFontSizeDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">34.26px</span>
+                    </div>
+                    <input type="range" id="t2RibbonFontSize" min="18" max="60" step="0.26" value="34.26"
+                      class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                      oninput="onT2RibbonFontSizeChange(this.value)">
+                  </div>
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] text-gray-400">عمودی پوزیشن (Y):</label>
+                      <span id="t2RibbonYDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">732px</span>
+                    </div>
+                    <input type="range" id="t2RibbonY" min="650" max="850" value="732"
+                      class="w-full h-1.5 bg-[#090d16] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                      oninput="onT2RibbonYChange(this.value)">
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5. Bottom Footer (Social Icons & URL) with Full Sizing Controls -->
+              <div id="t2CardFooter" class="bg-[#0b1222]/90 border border-[#334155] rounded-xl p-4 space-y-4">
+                <div class="flex items-center justify-between">
+                  <label class="text-xs font-bold text-gray-200 flex items-center gap-1.5 cursor-pointer" onclick="selectCanvasObject('footer')">
+                    <span class="material-symbols-outlined text-sm text-gray-400">dock</span>
+                    5. فوٹر بار اور سوشل میڈیا آئیکونز (تصویروں کے اوپر رہیں گے)
+                  </label>
+                  <label class="flex items-center gap-1.5 cursor-pointer">
+                    <input type="checkbox" id="t2FooterEnabled" checked onchange="onT2FooterToggle(this.checked)" class="w-4 h-4 rounded text-amber-500">
+                    <span class="text-xs text-gray-300 font-bold">فوٹر بار دکھائیں</span>
+                  </label>
+                </div>
+
+                <!-- Footer Base Controls -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-[#090d16] p-3 rounded-xl border border-gray-800">
+                  <div>
+                    <div class="flex items-center justify-between mb-1">
+                      <label class="text-[11px] text-gray-400">فوٹر اونچائی:</label>
+                      <span id="t2FooterHeightDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">85px</span>
+                    </div>
+                    <input type="range" id="t2FooterHeight" min="50" max="150" value="85"
+                      class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                      oninput="onT2FooterHeightChange(this.value)">
+                  </div>
+                  <div>
+                    <label class="block text-[11px] text-gray-400 mb-1">فوٹر بیک گراؤنڈ رنگ:</label>
+                    <div class="flex items-center gap-2 bg-[#131b2e] border border-[#334155] rounded-lg px-2.5 py-1">
+                      <input type="color" id="t2FooterBgColor" value="#FFFFFF" class="w-5 h-5 rounded border-0 bg-transparent cursor-pointer" oninput="onT2FooterBgChange(this.value)">
+                      <span id="t2FooterBgColorText" class="text-xs text-gray-300 font-mono">#FFFFFF</span>
+                    </div>
+                  </div>
+                  <div>
+                    <label class="block text-[11px] text-gray-400 mb-1">فوٹر لکیر رنگ:</label>
+                    <div class="flex items-center gap-2 bg-[#131b2e] border border-[#334155] rounded-lg px-2.5 py-1">
+                      <input type="color" id="t2FooterBorderColor" value="#CCCCCC" class="w-5 h-5 rounded border-0 bg-transparent cursor-pointer" oninput="onT2FooterBorderChange(this.value)">
+                      <span id="t2FooterBorderColorText" class="text-xs text-gray-300 font-mono">#CCCCCC</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Social Icons Controls -->
+                <div class="bg-[#090d16] p-3 rounded-xl border border-gray-800 space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-amber-300">سوشل میڈیا آئیکونز سائز اور پوزیشن</span>
+                    <label class="flex items-center gap-1.5 cursor-pointer">
+                      <input type="checkbox" id="t2SocialIconsEnabled" checked onchange="onT2Change()" class="w-4 h-4 rounded text-amber-500">
+                      <span class="text-xs text-gray-300">آئیکونز آن</span>
+                    </label>
+                  </div>
+                  <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] text-gray-400">آئیکونز سائز:</label>
+                        <span id="t2SocialSizeDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">46px</span>
+                      </div>
+                      <input type="range" id="t2SocialSize" min="20" max="90" value="46"
+                        class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                        oninput="onT2SocialSizeChange(this.value)">
+                    </div>
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] text-gray-400">افقی پوزیشن (X):</label>
+                        <span id="t2SocialXDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">60px</span>
+                      </div>
+                      <input type="range" id="t2SocialX" min="10" max="500" value="60"
+                        class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                        oninput="onT2SocialXChange(this.value)">
+                    </div>
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] text-gray-400">عمودی پوزیشن (Y):</label>
+                        <span id="t2SocialYDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">0px</span>
+                      </div>
+                      <input type="range" id="t2SocialY" min="-30" max="30" value="0"
+                        class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                        oninput="onT2SocialYChange(this.value)">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Website Address Controls -->
+                <div class="bg-[#090d16] p-3 rounded-xl border border-gray-800 space-y-3">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-sky-300">ویب سائٹ ایڈریس سائز اور فونٹ</span>
+                    <label class="flex items-center gap-1.5 cursor-pointer">
+                      <input type="checkbox" id="t2WebsiteEnabled" checked onchange="onT2WebsiteToggle(this.checked)" class="w-4 h-4 rounded text-sky-500">
+                      <span class="text-xs text-gray-300">ویب سائٹ آن</span>
+                    </label>
+                  </div>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <label class="block text-[11px] text-gray-400 mb-1">ویب سائٹ پتہ:</label>
+                      <input type="text" id="t2Website" value="www.southtoday.live"
+                        class="w-full bg-[#131b2e] border border-[#334155] rounded-xl px-3 py-2 text-sm text-white font-bold outline-none font-sans text-center"
+                        oninput="onT2Change()">
+                    </div>
+                    <div>
+                      <div class="flex items-center justify-between mb-1">
+                        <label class="text-[11px] text-gray-400">فونٹ سائز:</label>
+                        <span id="t2WebsiteFontSizeDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">36px</span>
+                      </div>
+                      <input type="range" id="t2WebsiteFontSize" min="16" max="54" value="36"
+                        class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                        oninput="onT2WebsiteFontSizeChange(this.value)">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="flex items-center gap-3 pt-2">
+                <button type="button" onclick="renderT2Canvas()"
+                  class="flex-1 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black py-3 px-6 rounded-xl shadow-lg shadow-amber-500/25 flex items-center justify-center gap-2 transition-all">
+                  <span class="material-symbols-outlined">refresh</span>
+                  <span>کینوس ریفریش کریں</span>
+                </button>
+                <button type="button" onclick="resetAllT2ToDefaults()"
+                  class="bg-[#1e293b] hover:bg-[#334155] text-gray-300 font-bold py-3 px-4 rounded-xl transition-all">
+                  ری سیٹ ڈیفالٹ
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Canvas & HD Export (6 Cols) -->
+        <div class="lg:col-span-6 space-y-4">
+          <div class="glass-card rounded-2xl p-6 shadow-xl sticky top-20">
+            <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-[#1e293b]">
+              <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                <h3 class="text-sm font-bold text-white">کینوس لائیو پریویو</h3>
+                <span id="selectedObjectBadge" class="text-[11px] bg-sky-500/10 text-sky-300 border border-sky-500/30 px-2 py-0.5 rounded-full font-mono">
+                  منتخب: مرکزی سرخی
+                </span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="downloadT2CanvasHD()"
+                  class="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-md flex items-center gap-1.5 transition-all">
+                  <span class="material-symbols-outlined text-sm">download</span>
+                  <span>HD ڈاؤن لوڈ کریں</span>
+                </button>
+                <button type="button" onclick="copyT2CanvasToClipboard()"
+                  class="bg-[#1e293b] hover:bg-[#334155] text-gray-300 text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1 transition-all"
+                  title="کلپ بورڈ پر کاپی کریں">
+                  <span class="material-symbols-outlined text-sm">content_copy</span>
+                  <span>کاپی</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Canvas Viewport Box -->
+            <div class="relative bg-[#050811] rounded-xl border border-[#1e293b] overflow-hidden flex items-center justify-center p-2 min-h-[500px]">
+              <canvas id="t2Canvas" width="1080" height="1400"
+                class="w-full max-h-[82vh] object-contain rounded-lg shadow-2xl cursor-default select-none transition-shadow"
+                style="aspect-ratio: 1080/1400; background: #000;"></canvas>
+
+              <!-- Floating In-Canvas Headline Cursor Editor -->
+              <div id="t2CanvasInlineWrapper" class="hidden absolute z-30 transition-all pointer-events-auto shadow-2xl">
+                <div class="flex items-center justify-between bg-slate-950/95 border-t border-x border-amber-400 px-3 py-1.5 rounded-t-xl text-xs">
+                  <span class="text-amber-400 font-bold flex items-center gap-1.5">
+                    <span class="material-symbols-outlined text-base">edit_note</span>
+                    <span>لائیو کرسر ایڈیٹر (بیک سپیس سے سپیس کم کریں)</span>
+                  </span>
+                  <div class="flex items-center gap-2">
+                    <button type="button" onclick="reduceHeadlineSpaces()" class="px-2 py-0.5 bg-slate-800 hover:bg-slate-700 text-amber-300 rounded text-[11px] font-bold border border-gray-700" title="فالتو سپیسز ختم کریں">
+                      ➖ سپیس کم کریں
+                    </button>
+                    <button type="button" onclick="closeHeadlineInlineEditor()" class="px-2.5 py-0.5 bg-amber-400 hover:bg-amber-300 text-slate-950 rounded text-[11px] font-black shadow">
+                      ✔️ مکمل
+                    </button>
+                  </div>
+                </div>
+                <textarea id="t2CanvasInlineTextarea" rows="3" dir="rtl"
+                  class="w-full bg-[#07054a]/95 text-white border-2 border-amber-400 rounded-b-xl p-3 font-['Jameel_Noori_Nastaleeq',serif] text-center focus:outline-none caret-amber-400 shadow-2xl resize-none leading-relaxed"
+                  style="font-size: 26px;"
+                  oninput="onInlineHeadlineInput(this.value)"
+                  onkeydown="onInlineHeadlineKeyDown(event)"></textarea>
+              </div>
+
+              <!-- Loading notification badge for AI Background Removal -->
+              <div id="aiLoadingBadge" class="hidden absolute top-4 left-1/2 -translate-x-1/2 bg-slate-900/95 border border-amber-500/50 shadow-2xl rounded-full px-4 py-2 flex items-center gap-2 text-xs text-amber-300 font-bold z-30">
+                <span class="w-3 h-3 rounded-full border-2 border-amber-400 border-t-transparent animate-spin"></span>
+                <span>AI سے بیک گراؤنڈ ریموو ہو رہا ہے...</span>
+              </div>
+            </div>
+
+            <!-- Interaction Hints below Canvas -->
+            <div class="mt-3 flex flex-wrap items-center justify-between text-[11px] text-gray-400 px-1 gap-2">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm text-amber-400">mouse</span>
+                <span>ماؤس سے پکڑ کر کہیں بھی گھسیٹیں | تصویر پر کلک کر کے <strong>'B'</strong> دبائیں</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span>ایر کیز: <strong>1px</strong></span>
+                <span>Shift + Arrows: <strong>10px</strong></span>
+                <span>Ctrl + یا -: <strong>سائز</strong></span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- END TEMPLATE 2 VIEW -->
+
+</main>
+
+  <script>
+
+    // ══════════════════════════════════════════════════════
+    // TEMPLATE SWITCHER (Template 1 vs Template 2)
+    // ══════════════════════════════════════════════════════
+    let currentActiveTemplate = 'template1';
+
+    function switchTemplate(tpl) {
+      currentActiveTemplate = tpl;
+      const t1View = document.getElementById('template1View');
+      const t2View = document.getElementById('template2View');
+      const btn1 = document.getElementById('tabBtnTpl1');
+      const btn2 = document.getElementById('tabBtnTpl2');
+
+      if (tpl === 'template1') {
+        t1View.classList.remove('hidden');
+        t2View.classList.add('hidden');
+        btn1.className = 'flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-md shadow-red-600/30';
+        btn2.className = 'flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-[#1e293b]';
+      } else {
+        t1View.classList.add('hidden');
+        t2View.classList.remove('hidden');
+        btn2.className = 'flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 shadow-md shadow-amber-500/30';
+        btn1.className = 'flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white hover:bg-[#1e293b]';
+        // Render Template 2 Canvas when opened
+        initT2Canvas();
+      }
+    }
+
+    // ══════════════════════════════════════════════════════
+    // TEMPLATE 2 INTERACTIVE CANVAS ENGINE (Multan PSD Exact)
+    // ══════════════════════════════════════════════════════
+    const t2State = {
+      // 1. Top Header Box & Text (Urdu Najd v3)
+      headerText: 'بھارتی فوج کا نقصانات کا اعتراف',
+      headerFontSize: 46,
+      headerFontFamily: 'Urdu Najd v3 Regular',
+      headerBgColor: '#FFCC00',
+      headerTextColor: '#000000',
+      headerBox: { x: 55, y: 56, width: 970, height: 96, radius: 14 },
+
+      // 2. Main Headline Text (Auto-fit & Stylable)
+      headline: 'پاکستان کے تیز رفتار\nمیزائل حملوں سے بھارتی\nفضائی اڈے اور *26* مقامات متاثر',
+      headlineFontFamily: 'Jameel Noori Nastaleeq',
+      highlightFontFamily: 'Jameel Noori Nastaleeq',
+      headlineFontSize: 82,
+      headlineLineHeight: 1.25,
+      headlineWordSpacing: -8, // Tight word spacing matching Photoshop Tracking -60
+      headlineColor: '#FFFFFF',
+      headlineHighlightColor: '#FFCC00',
+      headlineShadowAngle: 62, // Exact Photoshop Angle: 62 deg
+      headlineShadowDistance: 17, // Exact Photoshop Distance: 17 px
+      headlineShadowBlur: 16, // Exact Photoshop Size: 16 px
+      headlineShadowOpacity: 61, // Exact Photoshop Opacity: 61%
+      headlineShadowColor: '#000000',
+      headlineShadowOffsetX: -8,
+      headlineShadowOffsetY: 15,
+      headlineX: 540,
+      headlineY: 195,
+      headlineBounds: { x: 50, y: 175, width: 980, height: 380 },
+
+      // 3. Divider Ribbon (SOUTH TODAY MULTAN)
+      ribbonEnabled: true,
+      ribbonText: 'SOUTH TODAY MULTAN',
+      ribbonColor: '#FFCC00',
+      ribbonFontSize: 34.26, // Exact user specification: 34.26px
+      ribbonFontFamily: 'ErasITC-Bold', // Exact user specification: ErasITC-Bold
+      ribbonY: 732,
+      ribbonTextX: 355,
+      ribbonBounds: { x: 50, y: 715, width: 980, height: 35 },
+
+      // 4. Footer Bar & Social Icons (Always ON TOP of images!)
+      footerEnabled: true,
+      footerHeight: 85,
+      footerBgColor: '#FFFFFF',
+      footerBorderColor: '#CCCCCC',
+      socialIconsEnabled: true,
+      socialIconsImg: null,
+      socialSize: 46,
+      socialX: 60,
+      socialY: 0,
+      websiteEnabled: true,
+      website: 'www.southtoday.live',
+      websiteFontSize: 36, // Exact user specification: 36px fixed
+      websiteFontFamily: 'ErasITC-Bold',
+      websiteColor: '#0F172A',
+      websiteX: 820,
+      websiteY: 0,
+
+      // Base Halftone Dot Background (Layer 1)
+      bgBaseImg: null,
+
+      // Central War Confrontation Image (Layer 2)
+      bgImageEnabled: true,
+      bgImage: {
+        src: '/templates/template2_sample_bg.png',
+        img: null,
+        opacity: 0.85,
+        flipH: false,
+        x: -40,
+        y: 600,
+        width: 1160,
+        height: 742
+      },
+
+      // Multi-Image Overlay Slots (1 to 4)
+      // Images sit ON TOP of Divider Ribbon (so the ribbon line never cuts across hair/head),
+      // and UNDER the Footer Bar (so the bottom is neatly behind the footer).
+      overlayImages: [
+        {
+          id: 1,
+          name: 'تصویر 1 (کٹ آؤٹ)',
+          enabled: true,
+          aboveRibbon: true,
+          flipH: false,
+          src: '/templates/template2_sample_cutout.png',
+          originalSrc: '/templates/template2_sample_cutout.png',
+          img: null,
+          x: 460,
+          y: 540,
+          width: 681,
+          height: 844,
+          scale: 1.0,
+          borderRadius: 0,
+          opacity: 1.0
+        },
+        {
+          id: 2,
+          name: 'تصویر 2 (اضافی)',
+          enabled: false,
+          aboveRibbon: true,
+          flipH: false,
+          src: '',
+          originalSrc: '',
+          img: null,
+          x: 60,
+          y: 740,
+          width: 440,
+          height: 480,
+          scale: 1.0,
+          borderRadius: 12,
+          opacity: 1.0
+        },
+        {
+          id: 3,
+          name: 'تصویر 3 (اضافی)',
+          enabled: false,
+          aboveRibbon: true,
+          flipH: false,
+          src: '',
+          originalSrc: '',
+          img: null,
+          x: 320,
+          y: 760,
+          width: 400,
+          height: 440,
+          scale: 1.0,
+          borderRadius: 12,
+          opacity: 1.0
+        },
+        {
+          id: 4,
+          name: 'تصویر 4 (اضافی)',
+          enabled: false,
+          aboveRibbon: true,
+          flipH: false,
+          src: '',
+          originalSrc: '',
+          img: null,
+          x: 100,
+          y: 800,
+          width: 380,
+          height: 420,
+          scale: 1.0,
+          borderRadius: 12,
+          opacity: 1.0
+        }
+      ],
+
+      // Canvas Interactive Selection State
+      selectedObject: 'headline',
+      selectedOverlayIndex: 0,
+      isDragging: false,
+      activeHandle: null,
+      dragStart: { x: 0, y: 0 },
+      dragInitialObj: null
+    };
+
+    let t2Canvas, t2Ctx;
+    let t2CanvasInitialized = false;
+    let mediapipeSelfie = null;
+
+    function initT2Canvas() {
+      t2Canvas = document.getElementById('t2Canvas');
+      if (!t2Canvas) return;
+      t2Ctx = t2Canvas.getContext('2d');
+
+      if (!t2CanvasInitialized) {
+        t2CanvasInitialized = true;
+        setupT2Events();
+        loadAllT2Assets();
+        initMediaPipe();
+      } else {
+        renderT2Canvas();
+      }
+    }
+
+    function initMediaPipe() {
+      if (typeof SelfieSegmentation !== 'undefined') {
+        try {
+          mediapipeSelfie = new SelfieSegmentation({
+            locateFile: (file) => 'https://cdn.jsdelivr.net/npm/@mediapipe/selfie_segmentation/' + file
+          });
+          mediapipeSelfie.setOptions({ modelSelection: 1 });
+        } catch(e) {
+          console.warn('MediaPipe initialization warning:', e);
+        }
+      }
+    }
+
+    function loadAllT2Assets() {
+      // 1. Base Royal Blue Halftone Dot Background
+      t2State.bgBaseImg = new Image();
+      t2State.bgBaseImg.crossOrigin = 'anonymous';
+      t2State.bgBaseImg.src = '/templates/template2_bg.png';
+      t2State.bgBaseImg.onload = () => renderT2Canvas();
+      t2State.bgBaseImg.onerror = () => {
+        t2State.bgBaseImg.src = '/templates/template2_bg.jpg';
+      };
+
+      // 2. Footer Social Icons
+      t2State.socialIconsImg = new Image();
+      t2State.socialIconsImg.crossOrigin = 'anonymous';
+      t2State.socialIconsImg.src = '/templates/social_icons.png';
+      t2State.socialIconsImg.onload = () => renderT2Canvas();
+
+      // 3. War Background Image (Layer 2)
+      loadT2ImageObject(t2State.bgImage);
+
+      // 4. Overlays (Layer 3 Cutout, etc.)
+      t2State.overlayImages.forEach(item => {
+        if (item.src) loadT2ImageObject(item);
+      });
+    }
+
+    function loadT2ImageObject(obj) {
+      if (!obj.src) return;
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = obj.src;
+      img.onload = () => {
+        obj.img = img;
+        if (!obj.width) obj.width = img.naturalWidth || 600;
+        if (!obj.height) obj.height = img.naturalHeight || 600;
+        renderT2Canvas();
+      };
+      obj.img = img;
+    }
+
+    // ══════════════════════════════════════════════════════
+    // TOKENIZER & WORD STYLING FOR HEADLINE
+    // ══════════════════════════════════════════════════════
+    function parseHeadlineTokens(line, defaultColor, highlightColor) {
+      const COLOR_MAP = {
+        yellow: '#FFCC00',
+        red: '#FF3B30',
+        cyan: '#00E5FF',
+        green: '#34C759',
+        white: '#FFFFFF',
+        orange: '#FF9500'
+      };
+
+      const regex = /\*([^\*]+)\*|\{([a-zA-Z0-9#]+):([^\}]+)\}/g;
+      const tokens = [];
+      let lastIdx = 0;
+      let match;
+
+      while ((match = regex.exec(line)) !== null) {
+        if (match.index > lastIdx) {
+          tokens.push({ text: line.substring(lastIdx, match.index), color: defaultColor, isHighlight: false });
+        }
+        if (match[1] !== undefined) {
+          tokens.push({ text: match[1], color: highlightColor, isHighlight: true });
+        } else if (match[2] !== undefined) {
+          const colKey = match[2].toLowerCase();
+          const col = colKey.startsWith('#') ? colKey : (COLOR_MAP[colKey] || colKey);
+          tokens.push({ text: match[3], color: col, isHighlight: true });
+        }
+        lastIdx = regex.lastIndex;
+      }
+      if (lastIdx < line.length) {
+        tokens.push({ text: line.substring(lastIdx), color: defaultColor, isHighlight: false });
+      }
+      if (tokens.length === 0) {
+        tokens.push({ text: line, color: defaultColor, isHighlight: false });
+      }
+      return tokens;
+    }
+
+    // Helper to draw a single overlay image
+    function drawSingleOverlay(ctx, ov, idx) {
+      if (!ov.enabled || !ov.img || !ov.img.complete || ov.img.naturalWidth <= 0) return;
+      ctx.save();
+
+      const w = ov.width * ov.scale;
+      const h = ov.height * ov.scale;
+      const x = ov.x;
+      const y = ov.y;
+
+      ctx.globalAlpha = ov.opacity !== undefined ? ov.opacity : 1.0;
+
+      // Drop shadow for cutout
+      ctx.shadowColor = 'rgba(0,0,0,0.65)';
+      ctx.shadowBlur = 18;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 8;
+
+      // Clip rounded corners if any
+      if (ov.borderRadius > 0) {
+        ctx.beginPath();
+        const r = ov.borderRadius;
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+        ctx.closePath();
+        ctx.clip();
+      }
+
+      if (ov.flipH) {
+        ctx.translate(x + w, y);
+        ctx.scale(-1, 1);
+        ctx.drawImage(ov.img, 0, 0, w, h);
+      } else {
+        ctx.drawImage(ov.img, x, y, w, h);
+      }
+      ctx.restore();
+
+      // Selection Box if active
+      if (t2State.selectedObject === 'overlay' + idx) {
+        drawSelectionHandles(ctx, x, y, w, h, ov.name);
+      }
+    }
+
+    // ══════════════════════════════════════════════════════
+    // RENDER TEMPLATE 2 CANVAS (1080 x 1400 HD)
+    // ══════════════════════════════════════════════════════
+    function renderT2Canvas() {
+      if (!t2Canvas || !t2Ctx) return;
+      const ctx = t2Ctx;
+      const W = t2Canvas.width;
+      const H = t2Canvas.height;
+
+      ctx.clearRect(0, 0, W, H);
+
+      // 1. Base Royal Blue Halftone Dot Background (Layer 1 in PSD)
+      if (t2State.bgBaseImg && t2State.bgBaseImg.complete && t2State.bgBaseImg.naturalWidth > 0) {
+        ctx.drawImage(t2State.bgBaseImg, 0, 0, W, H);
+      } else {
+        const grad = ctx.createLinearGradient(0, 0, 0, H);
+        grad.addColorStop(0, '#0a0d24');
+        grad.addColorStop(0.35, '#0b02aa');
+        grad.addColorStop(0.7, '#07054a');
+        grad.addColorStop(1, '#03021f');
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
+      }
+
+      // 2. Central War Scene Background (Layer 2 in PSD)
+      if (t2State.bgImageEnabled && t2State.bgImage.img && t2State.bgImage.img.complete && t2State.bgImage.img.naturalWidth > 0) {
+        ctx.save();
+        ctx.globalAlpha = t2State.bgImage.opacity;
+        ctx.drawImage(t2State.bgImage.img, t2State.bgImage.x, t2State.bgImage.y, t2State.bgImage.width, t2State.bgImage.height);
+        ctx.restore();
+
+        if (t2State.selectedObject === 'bgImage') {
+          drawSelectionHandles(ctx, t2State.bgImage.x, t2State.bgImage.y, t2State.bgImage.width, t2State.bgImage.height, 'پس منظر جنگی تصویر');
+        }
+      }
+
+      // 3. Draw Overlays that are set to be BEHIND the ribbon (if any)
+      t2State.overlayImages.forEach((ov, idx) => {
+        if (ov.aboveRibbon === false) {
+          drawSingleOverlay(ctx, ov, idx);
+        }
+      });
+
+      // 4. Divider Ribbon (SOUTH TODAY MULTAN)
+      // Drawn BEFORE the foreground overlay images so that the ribbon line sits BEHIND the person's head/hair!
+      if (t2State.ribbonEnabled) {
+        drawT2Ribbon(ctx, W);
+      }
+
+      // 5. Multi-Image Overlays (1 to 4) - Drawn ON TOP of the Divider Ribbon, but UNDER the footer bar!
+      t2State.overlayImages.forEach((ov, idx) => {
+        if (ov.aboveRibbon !== false) {
+          drawSingleOverlay(ctx, ov, idx);
+        }
+      });
+
+      // 6. Bottom Footer Base Bar & Social Media Icons (Drawn ON TOP of images!)
+      if (t2State.footerEnabled) {
+        drawT2Footer(ctx, W, H);
+      }
+
+      // 7. Main Headline Text (Draggable & Word Stylable)
+      drawT2Headline(ctx, W);
+
+      // 8. Top Yellow Header (Urdu Najd v3 Regular in Rectangle 3)
+      drawT2Header(ctx, W);
+    }
+
+    // Draw Top Header Box and Text
+    function drawT2Header(ctx, W) {
+      const b = t2State.headerBox;
+      ctx.save();
+
+      // Yellow Rounded Box
+      ctx.fillStyle = t2State.headerBgColor || '#FFCC00';
+      ctx.shadowColor = 'rgba(0,0,0,0.4)';
+      ctx.shadowBlur = 12;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 4;
+
+      const r = b.radius || 14;
+      ctx.beginPath();
+      ctx.moveTo(b.x + r, b.y);
+      ctx.lineTo(b.x + b.width - r, b.y);
+      ctx.quadraticCurveTo(b.x + b.width, b.y, b.x + b.width, b.y + r);
+      ctx.lineTo(b.x + b.width, b.y + b.height - r);
+      ctx.quadraticCurveTo(b.x + b.width, b.y + b.height, b.x + b.width - r, b.y + b.height);
+      ctx.lineTo(b.x + r, b.y + b.height);
+      ctx.quadraticCurveTo(b.x, b.y + b.height, b.x, b.y + b.height - r);
+      ctx.lineTo(b.x, b.y + r);
+      ctx.quadraticCurveTo(b.x, b.y, b.x + r, b.y);
+      ctx.closePath();
+      ctx.fill();
+
+      // Text in Box
+      ctx.shadowColor = 'transparent';
+      ctx.fillStyle = t2State.headerTextColor || '#000000';
+      ctx.font = `bold ${t2State.headerFontSize}px "${t2State.headerFontFamily}", "UrduNajdv3", "UL Sajid Heading", sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(t2State.headerText, b.x + b.width / 2, b.y + b.height / 2 + 3);
+
+      ctx.restore();
+
+      if (t2State.selectedObject === 'header') {
+        drawSelectionHandles(ctx, b.x, b.y, b.width, b.height, 'یلو ہیڈر');
+      }
+    }
+
+    // Draw Main Headline with Perfect Urdu Nastaleeq Shaping & RTL Alignment
+    function drawT2Headline(ctx, W) {
+      ctx.save();
+      const lines = t2State.headline.split('\n');
+      const fontSize = t2State.headlineFontSize;
+      const lineHeight = fontSize * t2State.headlineLineHeight;
+      const startY = t2State.headlineY;
+      const centerX = t2State.headlineX;
+
+      let minX = 9999, maxX = -9999;
+
+      // Exact Photoshop Drop Shadow (Angle: 62 deg, Distance: 17px, Size: 16px, Opacity: 61%)
+      const angleRad = (t2State.headlineShadowAngle !== undefined ? t2State.headlineShadowAngle : 62) * Math.PI / 180;
+      const dist = t2State.headlineShadowDistance !== undefined ? t2State.headlineShadowDistance : 17;
+      const shadowOffsetX = -Math.round(dist * Math.cos(angleRad)); // -8px
+      const shadowOffsetY = Math.round(dist * Math.sin(angleRad));  // 15px
+      const shadowBlur = t2State.headlineShadowBlur !== undefined ? t2State.headlineShadowBlur : 16;
+      const shadowOpacity = (t2State.headlineShadowOpacity !== undefined ? t2State.headlineShadowOpacity : 61) / 100;
+      const shadowColor = 'rgba(0, 0, 0, ' + shadowOpacity + ')';
+
+      // Word Spacing / Tracking (tight by default to match Photoshop Tracking -60)
+      const wordSpacing = (t2State.headlineWordSpacing !== undefined ? t2State.headlineWordSpacing : -8) + 'px';
+
+      lines.forEach((line, i) => {
+        const y = startY + i * lineHeight;
+        const trimmed = line.trim();
+        const hasTags = trimmed.includes('*') || trimmed.includes('{');
+
+        if (!hasTags) {
+          // Plain Urdu Line: Native HarfBuzz Nastaleeq Text Shaping
+          ctx.save();
+          ctx.direction = 'rtl';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'top';
+          ctx.font = `bold ${fontSize}px "${t2State.headlineFontFamily}", "Jameel Noori Nastaleeq", serif`;
+          ctx.fillStyle = t2State.headlineColor || '#FFFFFF';
+          ctx.wordSpacing = wordSpacing;
+          ctx.shadowColor = shadowColor;
+          ctx.shadowBlur = shadowBlur;
+          ctx.shadowOffsetX = shadowOffsetX;
+          ctx.shadowOffsetY = shadowOffsetY;
+
+          const w = ctx.measureText(trimmed).width;
+          ctx.fillText(trimmed, centerX, y);
+
+          const left = centerX - w / 2;
+          const right = centerX + w / 2;
+          if (left < minX) minX = left;
+          if (right > maxX) maxX = right;
+          ctx.restore();
+        } else {
+          // Line with highlight tag: Precise RTL Segment Alignment
+          const tokens = parseHeadlineTokens(trimmed, t2State.headlineColor, t2State.headlineHighlightColor);
+
+          // Measure widths with wordSpacing
+          ctx.wordSpacing = wordSpacing;
+          let lineW = 0;
+          tokens.forEach(tok => {
+            const font = tok.isHighlight ? t2State.highlightFontFamily : t2State.headlineFontFamily;
+            ctx.font = `bold ${fontSize}px "${font}", "Jameel Noori Nastaleeq", serif`;
+            tok.w = ctx.measureText(tok.text).width;
+            lineW += tok.w;
+          });
+
+          const rightEdge = centerX + lineW / 2;
+          const leftEdge = centerX - lineW / 2;
+          if (leftEdge < minX) minX = leftEdge;
+          if (rightEdge > maxX) maxX = rightEdge;
+
+          ctx.save();
+          ctx.direction = 'ltr';
+          ctx.textAlign = 'left';
+          ctx.textBaseline = 'top';
+          ctx.wordSpacing = wordSpacing;
+          ctx.shadowColor = shadowColor;
+          ctx.shadowBlur = shadowBlur;
+          ctx.shadowOffsetX = shadowOffsetX;
+          ctx.shadowOffsetY = shadowOffsetY;
+
+          let curRight = rightEdge;
+          tokens.forEach(tok => {
+            const font = tok.isHighlight ? t2State.highlightFontFamily : t2State.headlineFontFamily;
+            ctx.font = `bold ${fontSize}px "${font}", "Jameel Noori Nastaleeq", serif`;
+            ctx.fillStyle = tok.color;
+            const curLeft = curRight - tok.w;
+            ctx.fillText(tok.text, curLeft, y);
+            curRight -= tok.w;
+          });
+          ctx.restore();
+        }
+      });
+
+      // Update computed bounding box
+      const totalH = lines.length * lineHeight;
+      const pad = 16;
+      t2State.headlineBounds = {
+        x: Math.max(20, minX - pad),
+        y: Math.max(10, startY - pad / 2),
+        width: Math.min(W - 40, (maxX - minX) + pad * 2),
+        height: totalH + pad
+      };
+
+      ctx.restore();
+
+      if (t2State.selectedObject === 'headline') {
+        const b = t2State.headlineBounds;
+        drawSelectionHandles(ctx, b.x, b.y, b.width, b.height, 'مرکزی سرخی (سائز اور پوزیشن)');
+      }
+    }
+
+    // Auto Center Headline
+    function autoCenterHeadline() {
+      t2State.headlineX = 540;
+      t2State.headlineY = 195;
+      document.getElementById('t2HeadlineX').value = 540;
+      document.getElementById('t2HeadlineXDisplay').textContent = '540px';
+      document.getElementById('t2HeadlineY').value = 195;
+      document.getElementById('t2HeadlineYDisplay').textContent = '195px';
+      renderT2Canvas();
+    }
+
+    // Draw Divider Ribbon (SOUTH TODAY MULTAN)
+    function drawT2Ribbon(ctx, W) {
+      const ribbonY = t2State.ribbonY;
+      const textX = t2State.ribbonTextX || 355;
+      const fontSize = t2State.ribbonFontSize || 34.26;
+      const fontFamily = t2State.ribbonFontFamily || 'ErasITC-Bold';
+      ctx.save();
+
+      // Text in Yellow #FFCC00 (ErasITC-Bold 34.26px matching PSD)
+      ctx.font = `bold ${fontSize}px "${fontFamily}", "Eras Bold ITC", "Arial Black", sans-serif`;
+      const text = t2State.ribbonText || 'SOUTH TODAY MULTAN';
+      const textW = ctx.measureText(text).width;
+      const pad = 30;
+
+      // Divider Lines flanking text dynamically
+      ctx.strokeStyle = '#ffffff';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.moveTo(40, ribbonY);
+      ctx.lineTo(Math.max(40, textX - textW / 2 - pad), ribbonY);
+      ctx.moveTo(Math.min(W - 40, textX + textW / 2 + pad), ribbonY);
+      ctx.lineTo(W - 40, ribbonY);
+      ctx.stroke();
+
+      ctx.fillStyle = t2State.ribbonColor || '#FFCC00';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.letterSpacing = '2px';
+      ctx.shadowColor = 'rgba(0,0,0,0.85)';
+      ctx.shadowBlur = 8;
+      ctx.fillText(text, textX, ribbonY);
+      ctx.restore();
+
+      if (t2State.selectedObject === 'ribbon') {
+        drawSelectionHandles(ctx, 30, ribbonY - 26, W - 60, 52, 'ربن بار');
+      }
+    }
+
+    // Draw Footer Bar (Always ON TOP of all overlay images!)
+    function drawT2Footer(ctx, W, H) {
+      const barH = t2State.footerHeight || 85;
+      const barY = H - barH;
+
+      ctx.save();
+      // Base Footer Bar
+      ctx.fillStyle = t2State.footerBgColor || '#FFFFFF';
+      ctx.fillRect(0, barY, W, barH);
+
+      // Top divider line of footer
+      ctx.strokeStyle = t2State.footerBorderColor || '#CCCCCC';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(0, barY);
+      ctx.lineTo(W, barY);
+      ctx.stroke();
+
+      // Social Media Icons
+      if (t2State.socialIconsEnabled && t2State.socialIconsImg && t2State.socialIconsImg.complete && t2State.socialIconsImg.naturalWidth > 0) {
+        const iconH = t2State.socialSize || 46;
+        const iconW = (t2State.socialIconsImg.naturalWidth / t2State.socialIconsImg.naturalHeight) * iconH;
+        const sx = t2State.socialX !== undefined ? t2State.socialX : 60;
+        const sy = barY + (barH - iconH) / 2 + (t2State.socialY || 0);
+        ctx.drawImage(t2State.socialIconsImg, sx, sy, iconW, iconH);
+      }
+
+      // Website URL (ErasITC-Bold 36px fixed)
+      if (t2State.websiteEnabled) {
+        ctx.fillStyle = t2State.websiteColor || '#0F172A';
+        ctx.font = `bold ${t2State.websiteFontSize || 36}px "${t2State.websiteFontFamily || 'ErasITC-Bold'}", "Eras Bold ITC", "Arial Black", sans-serif`;
+        ctx.textAlign = 'right';
+        ctx.textBaseline = 'middle';
+        const wx = t2State.websiteX !== undefined ? t2State.websiteX : (W - 80);
+        const wy = barY + barH / 2 + (t2State.websiteY || 0);
+        ctx.fillText(t2State.website || 'www.southtoday.live', wx, wy);
+      }
+      ctx.restore();
+
+      if (t2State.selectedObject === 'footer') {
+        drawSelectionHandles(ctx, 0, barY, W, barH, 'فوٹر بار');
+      }
+    }
+
+    // Draw Selection Bounding Box & 8 Handles
+    function drawSelectionHandles(ctx, x, y, w, h, label) {
+      ctx.save();
+      ctx.strokeStyle = '#00e5ff';
+      ctx.lineWidth = 3;
+      ctx.setLineDash([8, 6]);
+      ctx.strokeRect(x, y, w, h);
+
+      // 4 Corners + 4 Center Handles
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#ffffff';
+      ctx.strokeStyle = '#00e5ff';
+      ctx.lineWidth = 2;
+
+      const hs = 10;
+      const points = [
+        { x: x, y: y },                       // tl
+        { x: x + w / 2, y: y },               // tc
+        { x: x + w, y: y },                   // tr
+        { x: x, y: y + h / 2 },               // ml
+        { x: x + w, y: y + h / 2 },           // mr
+        { x: x, y: y + h },                   // bl
+        { x: x + w / 2, y: y + h },           // bc
+        { x: x + w, y: y + h }                // br
+      ];
+
+      points.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, hs, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+      });
+
+      // Label Badge
+      if (label) {
+        ctx.fillStyle = 'rgba(0, 229, 255, 0.9)';
+        ctx.font = 'bold 16px "Inter", sans-serif';
+        ctx.textAlign = 'left';
+        ctx.textBaseline = 'bottom';
+        const txtPad = 6;
+        const tw = ctx.measureText(label).width;
+        ctx.fillRect(x, y - 26, tw + txtPad * 2, 24);
+        ctx.fillStyle = '#090d16';
+        ctx.fillText(label, x + txtPad, y - 8);
+      }
+
+      ctx.restore();
+    }
+
+    // ══════════════════════════════════════════════════════
+    // AI SINGLE PERSON BACKGROUND REMOVAL (MediaPipe)
+    // ══════════════════════════════════════════════════════
+    async function removeActiveOverlayBackground() {
+      const idx = t2State.selectedOverlayIndex;
+      const ov = t2State.overlayImages[idx];
+      if (!ov || !ov.img || !ov.img.complete) {
+        alert('برائے مہربانی پہلے کوئی تصویر منتخب یا اپ لوڈ کریں!');
+        return;
+      }
+
+      if (!mediapipeSelfie) {
+        initMediaPipe();
+      }
+      if (!mediapipeSelfie) {
+        alert('AI ماڈل لوڈ ہو رہا ہے، چند سیکنڈ بعد دوبارہ کوشش کریں۔');
+        return;
+      }
+
+      const badge = document.getElementById('aiLoadingBadge');
+      if (badge) badge.classList.remove('hidden');
+
+      if (!ov.originalSrc) {
+        ov.originalSrc = ov.src;
+      }
+
+      try {
+        mediapipeSelfie.onResults((results) => {
+          const tempCanvas = document.createElement('canvas');
+          tempCanvas.width = results.image.width;
+          tempCanvas.height = results.image.height;
+          const tctx = tempCanvas.getContext('2d');
+
+          tctx.drawImage(results.segmentationMask, 0, 0, tempCanvas.width, tempCanvas.height);
+          tctx.globalCompositeOperation = 'source-in';
+          tctx.drawImage(results.image, 0, 0, tempCanvas.width, tempCanvas.height);
+
+          const transparentDataUrl = tempCanvas.toDataURL('image/png');
+          ov.src = transparentDataUrl;
+          loadT2ImageObject(ov);
+
+          if (badge) badge.classList.add('hidden');
+          const revertBtn = document.getElementById('btnRevertBg');
+          if (revertBtn) revertBtn.classList.remove('hidden');
+        });
+
+        await mediapipeSelfie.send({ image: ov.img });
+      } catch (err) {
+        console.error('Background removal error:', err);
+        if (badge) badge.classList.add('hidden');
+        alert('بیک گراؤنڈ ریموو کرنے میں مسئلہ پیش آیا۔ برائے مہربانی تصویر کا معیار چیک کریں۔');
+      }
+    }
+
+    function revertActiveOverlayOriginal() {
+      const idx = t2State.selectedOverlayIndex;
+      const ov = t2State.overlayImages[idx];
+      if (ov && ov.originalSrc) {
+        ov.src = ov.originalSrc;
+        loadT2ImageObject(ov);
+        const revertBtn = document.getElementById('btnRevertBg');
+        if (revertBtn) revertBtn.classList.add('hidden');
+      }
+    }
+
+    // ══════════════════════════════════════════════════════
+    // INTERACTIVE MOUSE & KEYBOARD EVENT HANDLERS
+    // ══════════════════════════════════════════════════════
+    function setupT2Events() {
+      t2Canvas.addEventListener('mousedown', handleCanvasMouseDown);
+            t2Canvas.addEventListener('dblclick', (e) => {
+        if (t2State.selectedObject === 'headline') {
+          openHeadlineInlineEditor();
+        }
+      });
+      window.addEventListener('mousemove', handleCanvasMouseMove);
+      window.addEventListener('mouseup', handleCanvasMouseUp);
+      window.addEventListener('keydown', handleCanvasKeyDown);
+    }
+
+    function getCanvasCoords(e) {
+      const rect = t2Canvas.getBoundingClientRect();
+      const scaleX = t2Canvas.width / rect.width;
+      const scaleY = t2Canvas.height / rect.height;
+      return {
+        x: (e.clientX - rect.left) * scaleX,
+        y: (e.clientY - rect.top) * scaleY
+      };
+    }
+
+    function selectCanvasObject(objName) {
+      t2State.selectedObject = objName;
+      updateSelectedObjectBadge();
+      renderT2Canvas();
+    }
+
+    function updateSelectedObjectBadge() {
+      const badge = document.getElementById('selectedObjectBadge');
+      if (!badge) return;
+
+      const labels = {
+        'headline': 'مرکزی سرخی (سائز اور پوزیشن)',
+        'header': 'یلو ہیڈر',
+        'ribbon': 'ربن بار',
+        'footer': 'فوٹر بار',
+        'bgImage': 'مرکزی پس منظر جنگی تصویر',
+        'overlay0': 'تصویر 1 (کٹ آؤٹ)',
+        'overlay1': 'تصویر 2',
+        'overlay2': 'تصویر 3',
+        'overlay3': 'تصویر 4'
+      };
+
+      badge.textContent = 'منتخب: ' + (labels[t2State.selectedObject] || 'کوئی نہیں');
+      if (t2State.selectedObject && t2State.selectedObject.startsWith('overlay')) {
+        const idx = parseInt(t2State.selectedObject.replace('overlay', ''));
+        selectOverlayTab(idx, false);
+      }
+    }
+
+    function handleCanvasMouseDown(e) {
+      if (currentActiveTemplate !== 'template2') return;
+      const pos = getCanvasCoords(e);
+      const hs = 26;
+
+      let hitHandle = null;
+      let hitTarget = null;
+
+      if (t2State.selectedObject === 'headline') {
+        const b = t2State.headlineBounds;
+        if (Math.abs(pos.x - (b.x + b.width)) < hs && Math.abs(pos.y - (b.y + b.height)) < hs) hitHandle = 'br';
+        else if (Math.abs(pos.x - b.x) < hs && Math.abs(pos.y - (b.y + b.height)) < hs) hitHandle = 'bl';
+        else if (Math.abs(pos.x - (b.x + b.width / 2)) < hs && Math.abs(pos.y - (b.y + b.height)) < hs) hitHandle = 'bc';
+        else if (pos.x >= b.x && pos.x <= b.x + b.width && pos.y >= b.y && pos.y <= b.y + b.height) hitHandle = 'move';
+        if (hitHandle) hitTarget = 'headline';
+      } else if (t2State.selectedObject && t2State.selectedObject.startsWith('overlay')) {
+        const idx = parseInt(t2State.selectedObject.replace('overlay', ''));
+        const ov = t2State.overlayImages[idx];
+        if (ov && ov.enabled) {
+          const w = ov.width * ov.scale;
+          const h = ov.height * ov.scale;
+          if (Math.abs(pos.x - (ov.x + w)) < hs && Math.abs(pos.y - (ov.y + h)) < hs) hitHandle = 'br';
+          else if (Math.abs(pos.x - ov.x) < hs && Math.abs(pos.y - (ov.y + h)) < hs) hitHandle = 'bl';
+          else if (Math.abs(pos.x - (ov.x + w)) < hs && Math.abs(pos.y - ov.y) < hs) hitHandle = 'tr';
+          else if (Math.abs(pos.x - ov.x) < hs && Math.abs(pos.y - ov.y) < hs) hitHandle = 'tl';
+          else if (pos.x >= ov.x && pos.x <= ov.x + w && pos.y >= ov.y && pos.y <= ov.y + h) hitHandle = 'move';
+          if (hitHandle) hitTarget = t2State.selectedObject;
+        }
+      }
+
+      if (!hitHandle) {
+        const hb = t2State.headerBox;
+        if (pos.x >= hb.x && pos.x <= hb.x + hb.width && pos.y >= hb.y && pos.y <= hb.y + hb.height) {
+          hitTarget = 'header';
+          hitHandle = 'move';
+        }
+        else if (pos.x >= t2State.headlineBounds.x && pos.x <= t2State.headlineBounds.x + t2State.headlineBounds.width &&
+                 pos.y >= t2State.headlineBounds.y && pos.y <= t2State.headlineBounds.y + t2State.headlineBounds.height) {
+          hitTarget = 'headline';
+          hitHandle = 'move';
+        }
+        else {
+          for (let i = t2State.overlayImages.length - 1; i >= 0; i--) {
+            const ov = t2State.overlayImages[i];
+            if (ov.enabled) {
+              const w = ov.width * ov.scale;
+              const h = ov.height * ov.scale;
+              if (pos.x >= ov.x && pos.x <= ov.x + w && pos.y >= ov.y && pos.y <= ov.y + h) {
+                hitTarget = 'overlay' + i;
+                hitHandle = 'move';
+                break;
+              }
+            }
+          }
+          if (!hitTarget && t2State.ribbonEnabled && Math.abs(pos.y - t2State.ribbonY) < 30) {
+            hitTarget = 'ribbon';
+            hitHandle = 'move';
+          }
+        }
+      }
+
+      if (hitTarget) {
+        t2State.selectedObject = hitTarget;
+        t2State.activeHandle = hitHandle;
+        t2State.isDragging = true;
+        t2State.dragStart = pos;
+
+        if (hitTarget === 'headline') {
+          t2State.dragInitialObj = {
+            x: t2State.headlineX,
+            y: t2State.headlineY,
+            fontSize: t2State.headlineFontSize
+          };
+        } else if (hitTarget.startsWith('overlay')) {
+          const idx = parseInt(hitTarget.replace('overlay', ''));
+          const ov = t2State.overlayImages[idx];
+          t2State.dragInitialObj = {
+            x: ov.x,
+            y: ov.y,
+            scale: ov.scale,
+            width: ov.width,
+            height: ov.height
+          };
+          selectOverlayTab(idx, false);
+        } else if (hitTarget === 'header') {
+          t2State.dragInitialObj = {
+            x: t2State.headerBox.x,
+            y: t2State.headerBox.y
+          };
+        } else if (hitTarget === 'ribbon') {
+          t2State.dragInitialObj = {
+            y: t2State.ribbonY
+          };
+        }
+
+        updateSelectedObjectBadge();
+        renderT2Canvas();
+        e.preventDefault();
+      } else {
+        t2State.selectedObject = null;
+        updateSelectedObjectBadge();
+        renderT2Canvas();
+      }
+    }
+
+    function handleCanvasMouseMove(e) {
+      if (currentActiveTemplate !== 'template2') return;
+      const pos = getCanvasCoords(e);
+
+      if (!t2State.isDragging) {
+        const hs = 26;
+        let cursor = 'default';
+        if (t2State.selectedObject === 'headline') {
+          const b = t2State.headlineBounds;
+          if ((Math.abs(pos.x - (b.x + b.width)) < hs && Math.abs(pos.y - (b.y + b.height)) < hs) ||
+              (Math.abs(pos.x - b.x) < hs && Math.abs(pos.y - (b.y + b.height)) < hs)) {
+            cursor = 'nwse-resize';
+          } else if (pos.x >= b.x && pos.x <= b.x + b.width && pos.y >= b.y && pos.y <= b.y + b.height) {
+            cursor = 'move';
+          }
+        } else if (t2State.selectedObject && t2State.selectedObject.startsWith('overlay')) {
+          const idx = parseInt(t2State.selectedObject.replace('overlay', ''));
+          const ov = t2State.overlayImages[idx];
+          if (ov && ov.enabled) {
+            const w = ov.width * ov.scale;
+            const h = ov.height * ov.scale;
+            if (Math.abs(pos.x - (ov.x + w)) < hs && Math.abs(pos.y - (ov.y + h)) < hs) cursor = 'nwse-resize';
+            else if (pos.x >= ov.x && pos.x <= ov.x + w && pos.y >= ov.y && pos.y <= ov.y + h) cursor = 'move';
+          }
+        }
+        t2Canvas.style.cursor = cursor;
+        return;
+      }
+
+      const dx = pos.x - t2State.dragStart.x;
+      const dy = pos.y - t2State.dragStart.y;
+      const init = t2State.dragInitialObj;
+      if (!init) return;
+
+      if (t2State.selectedObject === 'headline') {
+        if (t2State.activeHandle === 'move') {
+          t2State.headlineX = Math.round(init.x + dx);
+          t2State.headlineY = Math.round(init.y + dy);
+          document.getElementById('t2HeadlineX').value = t2State.headlineX;
+          document.getElementById('t2HeadlineXDisplay').textContent = t2State.headlineX + 'px';
+          document.getElementById('t2HeadlineY').value = t2State.headlineY;
+          document.getElementById('t2HeadlineYDisplay').textContent = t2State.headlineY + 'px';
+        } else if (t2State.activeHandle === 'br' || t2State.activeHandle === 'bc' || t2State.activeHandle === 'bl') {
+          const scaleFactor = 1 + (dy / 250);
+          const newSize = Math.max(40, Math.min(130, Math.round(init.fontSize * scaleFactor)));
+          t2State.headlineFontSize = newSize;
+          document.getElementById('t2HeadlineFontSize').value = newSize;
+          document.getElementById('t2HeadlineFontSizeDisplay').textContent = newSize + 'px';
+        }
+      } else if (t2State.selectedObject && t2State.selectedObject.startsWith('overlay')) {
+        const idx = parseInt(t2State.selectedObject.replace('overlay', ''));
+        const ov = t2State.overlayImages[idx];
+        if (ov) {
+          if (t2State.activeHandle === 'move') {
+            ov.x = Math.round(init.x + dx);
+            ov.y = Math.round(init.y + dy);
+            document.getElementById('ovX').value = ov.x;
+            document.getElementById('ovXDisplay').textContent = ov.x + 'px';
+            document.getElementById('ovY').value = ov.y;
+            document.getElementById('ovYDisplay').textContent = ov.y + 'px';
+          } else if (t2State.activeHandle === 'br') {
+            const newW = init.width * init.scale + dx;
+            if (newW > 40) {
+              ov.scale = Math.max(0.15, Math.min(2.8, parseFloat((newW / init.width).toFixed(2))));
+              document.getElementById('ovScale').value = ov.scale;
+              document.getElementById('ovScaleDisplay').textContent = ov.scale + 'x';
+            }
+          }
+        }
+      } else if (t2State.selectedObject === 'header' && t2State.activeHandle === 'move') {
+        t2State.headerBox.x = Math.round(init.x + dx);
+        t2State.headerBox.y = Math.round(init.y + dy);
+      } else if (t2State.selectedObject === 'ribbon' && t2State.activeHandle === 'move') {
+        t2State.ribbonY = Math.round(init.y + dy);
+        document.getElementById('t2RibbonY').value = t2State.ribbonY;
+        document.getElementById('t2RibbonYDisplay').textContent = t2State.ribbonY + 'px';
+      }
+
+      renderT2Canvas();
+    }
+
+    function handleCanvasMouseUp() {
+      t2State.isDragging = false;
+      t2State.activeHandle = null;
+    }
+
+    
+    // ══════════════════════════════════════════════════════
+    // LIVE IN-CANVAS HEADLINE CURSOR & SPACING CONTROLLER
+    // ══════════════════════════════════════════════════════
+    function openHeadlineInlineEditor() {
+      const wrapper = document.getElementById('t2CanvasInlineWrapper');
+      const textarea = document.getElementById('t2CanvasInlineTextarea');
+      if (!wrapper || !textarea || !t2Canvas) return;
+
+      const rect = t2Canvas.getBoundingClientRect();
+      const parentRect = t2Canvas.parentElement.getBoundingClientRect();
+      const scaleX = rect.width / 1080;
+      const scaleY = rect.height / 1400;
+
+      // Position directly over headline
+      const topOffset = (rect.top - parentRect.top) + (t2State.headlineY - 20) * scaleY;
+      const leftOffset = (rect.left - parentRect.left) + Math.max(10, (t2State.headlineX - 490) * scaleX);
+      const widthVal = Math.min(rect.width - 20, 980 * scaleX);
+
+      wrapper.style.top = topOffset + 'px';
+      wrapper.style.left = leftOffset + 'px';
+      wrapper.style.width = widthVal + 'px';
+
+      textarea.value = t2State.headline;
+      textarea.style.fontSize = Math.max(18, Math.round(t2State.headlineFontSize * scaleX)) + 'px';
+      textarea.style.wordSpacing = (t2State.headlineWordSpacing || -8) * scaleX + 'px';
+
+      wrapper.classList.remove('hidden');
+      textarea.focus();
+      // Place cursor at end or between words
+      textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+    }
+
+    function closeHeadlineInlineEditor() {
+      const wrapper = document.getElementById('t2CanvasInlineWrapper');
+      if (wrapper) wrapper.classList.add('hidden');
+    }
+
+    function onInlineHeadlineInput(val) {
+      t2State.headline = val;
+      const sidebarInput = document.getElementById('t2Headline');
+      if (sidebarInput) sidebarInput.value = val;
+      renderT2Canvas();
+    }
+
+    function onInlineHeadlineKeyDown(e) {
+      if (e.key === 'Escape' || (e.key === 'Enter' && (e.ctrlKey || e.metaKey))) {
+        e.preventDefault();
+        closeHeadlineInlineEditor();
+      }
+    }
+
+    // Reduces multiple spaces and tightens gaps between words
+    function reduceHeadlineSpaces() {
+      let textVal = t2State.headline;
+      // Replace double or multiple spaces with single space
+      textVal = textVal.replace(/[ 	]{2,}/g, ' ');
+      // Clean spaces before punctuation
+      textVal = textVal.replace(/\s+([:!؟،])/g, '$1');
+      t2State.headline = textVal;
+      
+      const sidebarInput = document.getElementById('t2Headline');
+      if (sidebarInput) sidebarInput.value = textVal;
+      const inlineInput = document.getElementById('t2CanvasInlineTextarea');
+      if (inlineInput) inlineInput.value = textVal;
+
+      // Also set compact word spacing
+      t2State.headlineWordSpacing = -10;
+      const slider = document.getElementById('t2HeadlineWordSpacing');
+      if (slider) slider.value = -10;
+      const display = document.getElementById('t2HeadlineWordSpacingDisplay');
+      if (display) display.textContent = '-10px';
+
+      renderT2Canvas();
+      showToast('تمام فالتو سپیسز کامیابی سے ختم کر دیے گئے');
+    }
+
+    function onT2HeadlineWordSpacingChange(val) {
+      t2State.headlineWordSpacing = parseFloat(val);
+      const display = document.getElementById('t2HeadlineWordSpacingDisplay');
+      if (display) display.textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2ShadowAngleChange(val) {
+      t2State.headlineShadowAngle = parseFloat(val);
+      const display = document.getElementById('t2ShadowAngleDisplay');
+      if (display) display.textContent = val + '°';
+      renderT2Canvas();
+    }
+
+    function onT2ShadowDistanceChange(val) {
+      t2State.headlineShadowDistance = parseFloat(val);
+      const display = document.getElementById('t2ShadowDistanceDisplay');
+      if (display) display.textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2ShadowBlurChange(val) {
+      t2State.headlineShadowBlur = parseFloat(val);
+      const display = document.getElementById('t2ShadowBlurDisplay');
+      if (display) display.textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2ShadowOpacityChange(val) {
+      t2State.headlineShadowOpacity = parseFloat(val);
+      const display = document.getElementById('t2ShadowOpacityDisplay');
+      if (display) display.textContent = val + '%';
+      renderT2Canvas();
+    }
+
+    function onT2RibbonFontSizeChange(val) {
+      t2State.ribbonFontSize = parseFloat(val);
+      const display = document.getElementById('t2RibbonFontSizeDisplay');
+      if (display) display.textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    // Toggle Flip Horizontal for Selected Overlay
+    function toggleActiveOverlayFlipH() {
+      const idx = t2State.selectedOverlayIndex;
+      const ov = t2State.overlayImages[idx];
+      if (ov) {
+        ov.flipH = !ov.flipH;
+        renderT2Canvas();
+        showToast(ov.flipH ? 'تصویر کا رخ بائیں جانب پلٹ دیا گیا' : 'تصویر کا رخ اصل حالت میں بحال کر دیا گیا');
+      }
+    }
+
+    function handleCanvasKeyDown(e) {
+      if (currentActiveTemplate !== 'template2') return;
+
+      const tag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+      if (tag === 'input' || tag === 'textarea' || tag === 'select') return;
+
+      // 'B' or 'b' key shortcut: Trigger AI background removal on selected overlay
+            // 'F' or 'f' key shortcut: Toggle Flip Horizontal on selected overlay
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleActiveOverlayFlipH();
+        return;
+      }
+
+      if (e.key === 'b' || e.key === 'B') {
+        e.preventDefault();
+        removeActiveOverlayBackground();
+        return;
+      }
+
+      const step = e.shiftKey ? 10 : 1;
+
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault();
+        if (t2State.selectedObject === 'headline') {
+          if (e.key === 'ArrowUp') t2State.headlineY -= step;
+          if (e.key === 'ArrowDown') t2State.headlineY += step;
+          if (e.key === 'ArrowLeft') t2State.headlineX -= step;
+          if (e.key === 'ArrowRight') t2State.headlineX += step;
+          document.getElementById('t2HeadlineX').value = t2State.headlineX;
+          document.getElementById('t2HeadlineXDisplay').textContent = t2State.headlineX + 'px';
+          document.getElementById('t2HeadlineY').value = t2State.headlineY;
+          document.getElementById('t2HeadlineYDisplay').textContent = t2State.headlineY + 'px';
+          renderT2Canvas();
+        } else if (t2State.selectedObject && t2State.selectedObject.startsWith('overlay')) {
+          const idx = parseInt(t2State.selectedObject.replace('overlay', ''));
+          const ov = t2State.overlayImages[idx];
+          if (ov) {
+            if (e.key === 'ArrowUp') ov.y -= step;
+            if (e.key === 'ArrowDown') ov.y += step;
+            if (e.key === 'ArrowLeft') ov.x -= step;
+            if (e.key === 'ArrowRight') ov.x += step;
+            document.getElementById('ovX').value = ov.x;
+            document.getElementById('ovXDisplay').textContent = ov.x + 'px';
+            document.getElementById('ovY').value = ov.y;
+            document.getElementById('ovYDisplay').textContent = ov.y + 'px';
+            renderT2Canvas();
+          }
+        }
+      } else if (e.key === '+' || e.key === '=') {
+        if (t2State.selectedObject === 'headline') {
+          t2State.headlineFontSize = Math.min(130, t2State.headlineFontSize + 2);
+          document.getElementById('t2HeadlineFontSize').value = t2State.headlineFontSize;
+          document.getElementById('t2HeadlineFontSizeDisplay').textContent = t2State.headlineFontSize + 'px';
+          renderT2Canvas();
+        }
+      } else if (e.key === '-' || e.key === '_') {
+        if (t2State.selectedObject === 'headline') {
+          t2State.headlineFontSize = Math.max(40, t2State.headlineFontSize - 2);
+          document.getElementById('t2HeadlineFontSize').value = t2State.headlineFontSize;
+          document.getElementById('t2HeadlineFontSizeDisplay').textContent = t2State.headlineFontSize + 'px';
+          renderT2Canvas();
+        }
+      }
+    }
+
+    // ══════════════════════════════════════════════════════
+    // FORM INPUT CHANGE HANDLERS FOR TEMPLATE 2
+    // ══════════════════════════════════════════════════════
+    function onT2Change() {
+      t2State.headerText = document.getElementById('t2HeaderText').value;
+      t2State.headerBgColor = document.getElementById('t2HeaderBgColor').value;
+      document.getElementById('t2HeaderBgColorText').textContent = t2State.headerBgColor.toUpperCase();
+
+      t2State.headlineColor = document.getElementById('t2HeadlineColor').value;
+      document.getElementById('t2HeadlineColorText').textContent = t2State.headlineColor.toUpperCase();
+
+      t2State.headlineHighlightColor = document.getElementById('t2HeadlineHighlightColor').value;
+      document.getElementById('t2HeadlineHighlightColorText').textContent = t2State.headlineHighlightColor.toUpperCase();
+
+      t2State.ribbonText = document.getElementById('t2RibbonText').value;
+      t2State.website = document.getElementById('t2Website').value;
+      t2State.socialIconsEnabled = document.getElementById('t2SocialIconsEnabled').checked;
+
+      renderT2Canvas();
+    }
+
+    function onT2HeadlineInputChange() {
+      t2State.headline = document.getElementById('t2Headline').value;
+      renderT2Canvas();
+    }
+
+    function formatHeadlineWord(colorType) {
+      const textarea = document.getElementById('t2Headline');
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      const text = textarea.value;
+
+      let selected = text.substring(start, end).trim();
+      if (!selected) selected = '26';
+
+      let wrapped = '';
+      if (colorType === 'yellow') {
+        wrapped = `*${selected}*`;
+      } else if (colorType === 'custom') {
+        const hex = document.getElementById('t2CustomWordColor').value;
+        wrapped = `{${hex}:${selected}}`;
+      } else {
+        wrapped = `{${colorType}:${selected}}`;
+      }
+
+      textarea.value = text.substring(0, start) + wrapped + text.substring(end);
+      onT2HeadlineInputChange();
+      textarea.focus();
+    }
+
+    function onT2HeadlineFontChange(val) {
+      t2State.headlineFontFamily = val;
+      renderT2Canvas();
+    }
+
+    function onT2HighlightFontChange(val) {
+      t2State.highlightFontFamily = val;
+      renderT2Canvas();
+    }
+
+    function onT2HeadlineFontSizeChange(val) {
+      t2State.headlineFontSize = parseInt(val);
+      document.getElementById('t2HeadlineFontSizeDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2HeadlineLineHeightChange(val) {
+      t2State.headlineLineHeight = parseFloat(val);
+      document.getElementById('t2HeadlineLineHeightDisplay').textContent = val;
+      renderT2Canvas();
+    }
+
+    function onT2HeadlineXChange(val) {
+      t2State.headlineX = parseInt(val);
+      document.getElementById('t2HeadlineXDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2HeadlineYChange(val) {
+      t2State.headlineY = parseInt(val);
+      document.getElementById('t2HeadlineYDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2HeaderFontChange(val) {
+      t2State.headerFontSize = parseInt(val);
+      document.getElementById('t2HeaderFontSizeDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    // Ribbon Handlers
+    function onT2RibbonToggle(val) {
+      t2State.ribbonEnabled = val;
+      renderT2Canvas();
+    }
+
+    function onT2RibbonYChange(val) {
+      t2State.ribbonY = parseInt(val);
+      document.getElementById('t2RibbonYDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    // Footer Handlers
+    function onT2FooterToggle(val) {
+      t2State.footerEnabled = val;
+      renderT2Canvas();
+    }
+
+    function onT2FooterHeightChange(val) {
+      t2State.footerHeight = parseInt(val);
+      document.getElementById('t2FooterHeightDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2FooterBgChange(val) {
+      t2State.footerBgColor = val;
+      document.getElementById('t2FooterBgColorText').textContent = val.toUpperCase();
+      renderT2Canvas();
+    }
+
+    function onT2FooterBorderChange(val) {
+      t2State.footerBorderColor = val;
+      document.getElementById('t2FooterBorderColorText').textContent = val.toUpperCase();
+      renderT2Canvas();
+    }
+
+    function onT2SocialSizeChange(val) {
+      t2State.socialSize = parseInt(val);
+      document.getElementById('t2SocialSizeDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2SocialXChange(val) {
+      t2State.socialX = parseInt(val);
+      document.getElementById('t2SocialXDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2SocialYChange(val) {
+      t2State.socialY = parseInt(val);
+      document.getElementById('t2SocialYDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onT2WebsiteToggle(val) {
+      t2State.websiteEnabled = val;
+      renderT2Canvas();
+    }
+
+    function onT2WebsiteFontSizeChange(val) {
+      t2State.websiteFontSize = parseInt(val);
+      document.getElementById('t2WebsiteFontSizeDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    // Toggle Overlay Above/Below Ribbon
+    function toggleOverlayAboveRibbon(val) {
+      t2State.overlayImages[t2State.selectedOverlayIndex].aboveRibbon = val;
+      renderT2Canvas();
+    }
+
+    // Multi-Image Overlay Management
+    function selectOverlayTab(idx, syncObject = true) {
+      t2State.selectedOverlayIndex = idx;
+      if (syncObject) {
+        t2State.selectedObject = 'overlay' + idx;
+        updateSelectedObjectBadge();
+      }
+
+      for (let i = 0; i < 4; i++) {
+        const btn = document.getElementById('ovTab' + i);
+        if (i === idx) {
+          btn.className = 'py-1.5 px-2 rounded-lg text-xs font-bold transition-all bg-amber-400 text-slate-950 shadow';
+        } else {
+          btn.className = 'py-1.5 px-2 rounded-lg text-xs font-bold transition-all text-gray-400 hover:text-white';
+        }
+      }
+
+      const ov = t2State.overlayImages[idx];
+      document.getElementById('activeOverlayTitle').textContent = ov.name + ' کنفیگریشن';
+      document.getElementById('ovEnabled').checked = ov.enabled;
+      document.getElementById('ovAboveRibbon').checked = ov.aboveRibbon !== false;
+      document.getElementById('ovUrlInput').value = ov.src || '';
+      document.getElementById('ovScale').value = ov.scale;
+      document.getElementById('ovScaleDisplay').textContent = ov.scale + 'x';
+      document.getElementById('ovX').value = ov.x;
+      document.getElementById('ovXDisplay').textContent = ov.x + 'px';
+      document.getElementById('ovY').value = ov.y;
+      document.getElementById('ovYDisplay').textContent = ov.y + 'px';
+      document.getElementById('ovRadius').value = ov.borderRadius;
+      document.getElementById('ovRadiusDisplay').textContent = ov.borderRadius + 'px';
+
+      const revertBtn = document.getElementById('btnRevertBg');
+      if (revertBtn) {
+        if (ov.originalSrc && ov.src !== ov.originalSrc) {
+          revertBtn.classList.remove('hidden');
+        } else {
+          revertBtn.classList.add('hidden');
+        }
+      }
+
+      renderT2Canvas();
+    }
+
+    function toggleOverlayEnabled(val) {
+      t2State.overlayImages[t2State.selectedOverlayIndex].enabled = val;
+      renderT2Canvas();
+    }
+
+    function handleOverlayFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        const ov = t2State.overlayImages[t2State.selectedOverlayIndex];
+        ov.src = evt.target.result;
+        ov.originalSrc = evt.target.result;
+        ov.enabled = true;
+        document.getElementById('ovEnabled').checked = true;
+        loadT2ImageObject(ov);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function onOverlayUrlChange(val) {
+      const ov = t2State.overlayImages[t2State.selectedOverlayIndex];
+      ov.src = val;
+      ov.originalSrc = val;
+      if (val) {
+        ov.enabled = true;
+        document.getElementById('ovEnabled').checked = true;
+        loadT2ImageObject(ov);
+      }
+    }
+
+    function onOverlayScaleChange(val) {
+      const ov = t2State.overlayImages[t2State.selectedOverlayIndex];
+      ov.scale = parseFloat(val);
+      document.getElementById('ovScaleDisplay').textContent = val + 'x';
+      renderT2Canvas();
+    }
+
+    function onOverlayPosChange(axis, val) {
+      const ov = t2State.overlayImages[t2State.selectedOverlayIndex];
+      ov[axis] = parseInt(val);
+      document.getElementById('ov' + axis.toUpperCase() + 'Display').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function onOverlayRadiusChange(val) {
+      const ov = t2State.overlayImages[t2State.selectedOverlayIndex];
+      ov.borderRadius = parseInt(val);
+      document.getElementById('ovRadiusDisplay').textContent = val + 'px';
+      renderT2Canvas();
+    }
+
+    function moveActiveOverlayZ(direction) {
+      const idx = t2State.selectedOverlayIndex;
+      const arr = t2State.overlayImages;
+      if (direction === 'up' && idx < arr.length - 1) {
+        const tmp = arr[idx];
+        arr[idx] = arr[idx + 1];
+        arr[idx + 1] = tmp;
+        selectOverlayTab(idx + 1);
+      } else if (direction === 'down' && idx > 0) {
+        const tmp = arr[idx];
+        arr[idx] = arr[idx - 1];
+        arr[idx - 1] = tmp;
+        selectOverlayTab(idx - 1);
+      }
+    }
+
+    function resetActiveOverlay() {
+      const idx = t2State.selectedOverlayIndex;
+      if (idx === 0) {
+        t2State.overlayImages[0] = {
+          id: 1,
+          name: 'تصویر 1 (کٹ آؤٹ)',
+          enabled: true,
+          aboveRibbon: true,
+          flipH: false,
+          src: '/templates/template2_sample_cutout.png',
+          originalSrc: '/templates/template2_sample_cutout.png',
+          img: null,
+          x: 460,
+          y: 540,
+          width: 681,
+          height: 844,
+          scale: 1.0,
+          borderRadius: 0,
+          opacity: 1.0
+        };
+        loadT2ImageObject(t2State.overlayImages[0]);
+      } else {
+        t2State.overlayImages[idx].enabled = false;
+        t2State.overlayImages[idx].aboveRibbon = true;
+        t2State.overlayImages[idx].src = '';
+        t2State.overlayImages[idx].originalSrc = '';
+        t2State.overlayImages[idx].img = null;
+      }
+      selectOverlayTab(idx);
+    }
+
+    // War Background Image Handlers
+    function toggleT2BgImage(val) {
+      t2State.bgImageEnabled = val;
+      renderT2Canvas();
+    }
+
+    function onT2BgOpacityChange(val) {
+      t2State.bgImage.opacity = parseInt(val) / 100;
+      document.getElementById('t2BgOpacityDisplay').textContent = val + '%';
+      renderT2Canvas();
+    }
+
+    function handleT2BgUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        t2State.bgImage.src = evt.target.result;
+        t2State.bgImageEnabled = true;
+        document.getElementById('t2BgImageEnabled').checked = true;
+        loadT2ImageObject(t2State.bgImage);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // Reset All Template 2 Settings to PSD Defaults
+    function resetAllT2ToDefaults() {
+      t2State.headerText = 'بھارتی فوج کا نقصانات کا اعتراف';
+      t2State.headerFontSize = 46;
+      t2State.headerBgColor = '#FFCC00';
+      t2State.headline = 'پاکستان کے تیز رفتار\nمیزائل حملوں سے بھارتی\nفضائی اڈے اور *26* مقامات متاثر';
+      t2State.headlineFontFamily = 'Jameel Noori Nastaleeq';
+      t2State.highlightFontFamily = 'Jameel Noori Nastaleeq';
+      t2State.headlineFontSize = 82;
+      t2State.headlineLineHeight = 1.25;
+      t2State.headlineX = 540;
+      t2State.headlineY = 195;
+      t2State.ribbonEnabled = true;
+      t2State.ribbonText = 'SOUTH TODAY MULTAN';
+      t2State.ribbonY = 732;
+      t2State.ribbonTextX = 355;
+      t2State.footerEnabled = true;
+      t2State.footerHeight = 85;
+      t2State.footerBgColor = '#FFFFFF';
+      t2State.socialSize = 46;
+      t2State.socialX = 60;
+      t2State.socialY = 0;
+      t2State.website = 'www.southtoday.live';
+      t2State.websiteFontSize = 22;
+
+      document.getElementById('t2HeaderText').value = t2State.headerText;
+      document.getElementById('t2HeaderFontSize').value = 46;
+      document.getElementById('t2HeaderFontSizeDisplay').textContent = '46px';
+      document.getElementById('t2Headline').value = t2State.headline;
+      document.getElementById('t2HeadlineFontSize').value = 82;
+      document.getElementById('t2HeadlineFontSizeDisplay').textContent = '82px';
+      document.getElementById('t2HeadlineLineHeight').value = 1.25;
+      document.getElementById('t2HeadlineLineHeightDisplay').textContent = '1.25';
+      document.getElementById('t2HeadlineX').value = 540;
+      document.getElementById('t2HeadlineXDisplay').textContent = '540px';
+      document.getElementById('t2HeadlineY').value = 195;
+      document.getElementById('t2HeadlineYDisplay').textContent = '195px';
+      document.getElementById('t2RibbonEnabled').checked = true;
+      document.getElementById('t2RibbonText').value = t2State.ribbonText;
+      document.getElementById('t2RibbonY').value = 732;
+      document.getElementById('t2RibbonYDisplay').textContent = '732px';
+      document.getElementById('t2FooterEnabled').checked = true;
+      document.getElementById('t2FooterHeight').value = 85;
+      document.getElementById('t2FooterHeightDisplay').textContent = '85px';
+      document.getElementById('t2SocialSize').value = 46;
+      document.getElementById('t2SocialSizeDisplay').textContent = '46px';
+      document.getElementById('t2SocialX').value = 60;
+      document.getElementById('t2SocialXDisplay').textContent = '60px';
+      document.getElementById('t2WebsiteFontSize').value = 22;
+      document.getElementById('t2WebsiteFontSizeDisplay').textContent = '22px';
+
+      resetActiveOverlay();
+      renderT2Canvas();
+    }
+
+    // Download HD Canvas (1080 x 1400 PNG)
+    function downloadT2CanvasHD() {
+      const currentSel = t2State.selectedObject;
+      t2State.selectedObject = null;
+      renderT2Canvas();
+
+      setTimeout(() => {
+        const link = document.createElement('a');
+        link.download = 'south_today_multan_' + Date.now() + '.png';
+        link.href = t2Canvas.toDataURL('image/png');
+        link.click();
+
+        t2State.selectedObject = currentSel;
+        renderT2Canvas();
+      }, 50);
+    }
+
+    // Copy Canvas to Clipboard
+    function copyT2CanvasToClipboard() {
+      const currentSel = t2State.selectedObject;
+      t2State.selectedObject = null;
+      renderT2Canvas();
+
+      setTimeout(() => {
+        t2Canvas.toBlob(blob => {
+          if (!blob) {
+            alert('تصویر کاپی کرنے میں مسئلہ پیش آیا');
+            t2State.selectedObject = currentSel;
+            renderT2Canvas();
+            return;
+          }
+          const item = new ClipboardItem({ 'image/png': blob });
+          navigator.clipboard.write([item]).then(() => {
+            alert('تصویر کلپ بورڈ پر کامیابی سے کاپی ہو گئی!');
+          }).catch(err => {
+            console.error('Clipboard error:', err);
+            alert('براؤزر سیکیورٹی نے روکا، برائے مہربانی HD ڈاؤن لوڈ کا بٹن استعمال کریں');
+          }).finally(() => {
+            t2State.selectedObject = currentSel;
+            renderT2Canvas();
+          });
+        });
+      }, 50);
+    }
+
+    // Global exports for external access, testing and automation
+    window.t2State = t2State;
+    window.renderT2Canvas = renderT2Canvas;
+    window.initT2Canvas = initT2Canvas;
+    window.switchTemplate = switchTemplate;
+    window.removeActiveOverlayBackground = removeActiveOverlayBackground;
+    window.revertActiveOverlayOriginal = revertActiveOverlayOriginal;
+    window.openHeadlineInlineEditor = openHeadlineInlineEditor;
+    window.closeHeadlineInlineEditor = closeHeadlineInlineEditor;
+    window.reduceHeadlineSpaces = reduceHeadlineSpaces;
+    window.onT2HeadlineWordSpacingChange = onT2HeadlineWordSpacingChange;
+    window.onT2RibbonFontSizeChange = onT2RibbonFontSizeChange;
+    window.toggleActiveOverlayFlipH = toggleActiveOverlayFlipH;
+
+
+
+    let uploadedFile = null;
+    let currentLogoType = 'official';
+
+    function updateLogoType(type) {
+      currentLogoType = type;
+      document.querySelectorAll('input[name="logoType"]').forEach(radio => {
+        const parent = radio.closest('label');
+        if (radio.value === type) {
+          parent.className = 'relative flex flex-col items-center p-3 rounded-xl border cursor-pointer transition-all bg-[#090d16] border-red-500/80 ring-2 ring-red-500/40';
+        } else {
+          parent.className = 'relative flex flex-col items-center justify-center p-3 rounded-xl border cursor-pointer transition-all bg-[#090d16] border-[#334155] hover:border-gray-500';
+        }
+      });
+
+      document.getElementById('customLogoField').classList.toggle('hidden', type !== 'custom_url');
+      document.getElementById('textLogoFields').classList.toggle('hidden', type !== 'text');
+    }
+
+    function handleFileUpload(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      uploadedFile = file;
+      document.getElementById('fileNameDisplay').textContent = file.name;
+      document.getElementById('fileUploadNotice').classList.remove('hidden');
+      document.getElementById('fileUploadNotice').classList.add('flex');
+    }
+
+    function clearUploadedFile() {
+      uploadedFile = null;
+      document.getElementById('imageFile').value = '';
+      document.getElementById('fileUploadNotice').classList.add('hidden');
+      document.getElementById('fileUploadNotice').classList.remove('flex');
+    }
+
+    document.getElementById('hlColor').addEventListener('input', (e) => {
+      document.getElementById('hlColorText').textContent = e.target.value.toUpperCase();
+    });
+
+    let customFontSize = '';
+    let customLineHeight = '';
+
+    function onFontSizeChange(val) {
+      if (!val || val == 0) {
+        customFontSize = '';
+        document.getElementById('fontSizeDisplay').textContent = 'خودکار (Auto)';
+      } else {
+        customFontSize = val + 'px';
+        document.getElementById('fontSizeDisplay').textContent = val + 'px';
+      }
+    }
+
+    function resetFontSize() {
+      document.getElementById('fontSizeInput').value = 0;
+      customFontSize = '';
+      document.getElementById('fontSizeDisplay').textContent = 'خودکار (Auto)';
+    }
+
+    function onLineHeightChange(val) {
+      if (!val || val == 0) {
+        customLineHeight = '';
+        document.getElementById('lineHeightDisplay').textContent = 'خودکار (Auto)';
+      } else {
+        customLineHeight = parseFloat(val).toFixed(2);
+        document.getElementById('lineHeightDisplay').textContent = customLineHeight;
+      }
+    }
+
+    function resetLineHeight() {
+      document.getElementById('lineHeightInput').value = 0;
+      customLineHeight = '';
+      document.getElementById('lineHeightDisplay').textContent = 'خودکار (Auto)';
+    }
+
+    let customCategoryFontSize = '';
+
+    function onCategoryFontSizeChange(val) {
+      if (!val || val == 0) {
+        customCategoryFontSize = '';
+        document.getElementById('categoryFontSizeDisplay').textContent = 'خودکار (Auto)';
+      } else {
+        customCategoryFontSize = parseInt(val);
+        document.getElementById('categoryFontSizeDisplay').textContent = customCategoryFontSize + 'px';
+      }
+    }
+
+    function resetCategoryFontSize() {
+      document.getElementById('categoryFontSizeInput').value = 0;
+      customCategoryFontSize = '';
+      document.getElementById('categoryFontSizeDisplay').textContent = 'خودکار (Auto)';
+    }
+
+    async function generatePoster(e) {
+      e.preventDefault();
+      const btn = document.getElementById('generateBtn');
+      const overlay = document.getElementById('loadingOverlay');
+      const stats = document.getElementById('renderStats');
+
+      btn.disabled = true;
+      btn.classList.add('opacity-60', 'cursor-not-allowed');
+      overlay.classList.remove('hidden');
+      stats.textContent = 'Rendering...';
+
+      try {
+        const formData = new FormData();
+        if (uploadedFile) {
+          formData.append('imageFile', uploadedFile);
+        } else {
+          const bgUrl = document.getElementById('imageUrl').value.trim();
+          if (bgUrl) formData.append('imageUrl', bgUrl);
+        }
+
+        formData.append('category', document.getElementById('category').value.trim());
+        formData.append('headline', document.getElementById('headline').value.trim());
+        formData.append('website', document.getElementById('website').value.trim());
+        formData.append('hlColor', document.getElementById('hlColor').value);
+
+        if (customFontSize) {
+          formData.append('fontSize', customFontSize);
+        }
+        if (customLineHeight) {
+          formData.append('lineHeight', customLineHeight);
+        }
+        if (customCategoryFontSize) {
+          formData.append('categoryFontSize', customCategoryFontSize);
+        }
+
+        if (currentLogoType === 'official') {
+          // Default official logo will be applied automatically by backend
+        } else if (currentLogoType === 'custom_url') {
+          const cLogo = document.getElementById('customLogoUrl').value.trim();
+          if (cLogo) formData.append('logoUrl', cLogo);
+        }
+
+        // Direct call to API Backend (relative if hosted on domain, full URL otherwise)
+        const apiUrl = window.location.hostname.includes('jamshedrizwani.com') 
+          ? '/api/generate' 
+          : 'https://editor.jamshedrizwani.com/api/generate';
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          body: formData
+        });
+
+        const rawText = await response.text();
+        let data;
+        try {
+          data = JSON.parse(rawText);
+        } catch (jsonErr) {
+          throw new Error('Server returned invalid response (' + response.status + '): ' + rawText.substring(0, 120));
+        }
+
+        if (data.success && data.imageUrl) {
+          const img = document.getElementById('previewImg');
+          img.src = data.imageUrl + '?t=' + Date.now();
+          document.getElementById('downloadBtn').href = data.downloadUrl || data.imageUrl;
+          document.getElementById('outputUrlDisplay').textContent = data.imageUrl;
+          stats.textContent = 'Done in ' + (data.renderDuration || '300ms');
+        } else {
+          alert('Error: ' + (data.error || 'Failed to generate poster'));
+          stats.textContent = 'Error';
+        }
+      } catch (err) {
+        console.error('Poster generation error:', err);
+        alert('Network or server error: ' + err.message);
+        stats.textContent = 'Failed';
+      } finally {
+        btn.disabled = false;
+        btn.classList.remove('opacity-60', 'cursor-not-allowed');
+        overlay.classList.add('hidden');
+      }
+    }
+
+    function copyImageUrl() {
+      const url = document.getElementById('outputUrlDisplay').textContent;
+      if (!url || url.includes('test_render')) {
+        alert('Please generate a poster first!');
+        return;
+      }
+      navigator.clipboard.writeText(url).then(() => {
+        alert('Image URL copied to clipboard!');
+      });
+    }
+  </script>
+</body>
+</html>
