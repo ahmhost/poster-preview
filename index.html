@@ -895,6 +895,52 @@
                       class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
                       oninput="onT2BgFeatherChange(this.value)">
                   </div>
+
+                  <!-- Background Image Position X, Y & Scale Controls -->
+                  <div class="pt-2 border-t border-[#1e293b] space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="text-[11px] font-bold text-gray-300 flex items-center gap-1 cursor-pointer" onclick="selectCanvasObject('bgImage')">
+                        <span class="material-symbols-outlined text-xs text-amber-400">open_with</span>
+                        تصویر کی پوزیشن اور سائز (Position & Scale)
+                      </span>
+                      <button type="button" onclick="resetT2BgPosition()" class="text-[10px] text-gray-400 hover:text-amber-400 flex items-center gap-0.5 transition">
+                        <span class="material-symbols-outlined text-xs">restart_alt</span>
+                        ری سیٹ (Reset)
+                      </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-2.5">
+                      <div>
+                        <div class="flex items-center justify-between mb-1">
+                          <label class="text-[11px] text-gray-400">پوزیشن X:</label>
+                          <span id="t2BgXDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">-40px</span>
+                        </div>
+                        <input type="range" id="t2BgX" min="-600" max="600" value="-40"
+                          class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                          oninput="onT2BgPosChange('x', this.value)">
+                      </div>
+
+                      <div>
+                        <div class="flex items-center justify-between mb-1">
+                          <label class="text-[11px] text-gray-400">پوزیشن Y:</label>
+                          <span id="t2BgYDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">600px</span>
+                        </div>
+                        <input type="range" id="t2BgY" min="0" max="1200" value="600"
+                          class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                          oninput="onT2BgPosChange('y', this.value)">
+                      </div>
+
+                      <div>
+                        <div class="flex items-center justify-between mb-1">
+                          <label class="text-[11px] text-gray-400">سائز (Scale):</label>
+                          <span id="t2BgScaleDisplay" class="text-[11px] font-mono text-amber-400 font-semibold">1.0x</span>
+                        </div>
+                        <input type="range" id="t2BgScale" min="30" max="250" value="100"
+                          class="w-full h-1.5 bg-[#131b2e] rounded appearance-none cursor-pointer accent-amber-400"
+                          oninput="onT2BgScaleChange(this.value)">
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -1252,8 +1298,11 @@
         flipH: false,
         x: -40,
         y: 600,
+        baseWidth: 1160,
+        baseHeight: 742,
         width: 1160,
-        height: 742
+        height: 742,
+        scale: 1.0
       },
 
       // Multi-Image Overlay Slots (1 to 4)
@@ -2061,6 +2110,16 @@
           else if (pos.x >= ov.x && pos.x <= ov.x + w && pos.y >= ov.y && pos.y <= ov.y + h) hitHandle = 'move';
           if (hitHandle) hitTarget = t2State.selectedObject;
         }
+      } else if (t2State.selectedObject === 'bgImage') {
+        const bg = t2State.bgImage;
+        const w = bg.width;
+        const h = bg.height;
+        if (Math.abs(pos.x - (bg.x + w)) < hs && Math.abs(pos.y - (bg.y + h)) < hs) hitHandle = 'br';
+        else if (Math.abs(pos.x - bg.x) < hs && Math.abs(pos.y - (bg.y + h)) < hs) hitHandle = 'bl';
+        else if (Math.abs(pos.x - (bg.x + w)) < hs && Math.abs(pos.y - bg.y) < hs) hitHandle = 'tr';
+        else if (Math.abs(pos.x - bg.x) < hs && Math.abs(pos.y - bg.y) < hs) hitHandle = 'tl';
+        else if (pos.x >= bg.x && pos.x <= bg.x + w && pos.y >= bg.y && pos.y <= bg.y + h) hitHandle = 'move';
+        if (hitHandle) hitTarget = 'bgImage';
       }
 
       if (!hitHandle) {
@@ -2090,6 +2149,13 @@
           if (!hitTarget && t2State.ribbonEnabled && Math.abs(pos.y - t2State.ribbonY) < 30) {
             hitTarget = 'ribbon';
             hitHandle = 'move';
+          }
+          if (!hitTarget && t2State.bgImageEnabled) {
+            const bg = t2State.bgImage;
+            if (pos.x >= bg.x && pos.x <= bg.x + bg.width && pos.y >= bg.y && pos.y <= bg.y + bg.height) {
+              hitTarget = 'bgImage';
+              hitHandle = 'move';
+            }
           }
         }
       }
@@ -2126,6 +2192,16 @@
           t2State.dragInitialObj = {
             y: t2State.ribbonY
           };
+        } else if (hitTarget === 'bgImage') {
+          t2State.dragInitialObj = {
+            x: t2State.bgImage.x,
+            y: t2State.bgImage.y,
+            width: t2State.bgImage.width,
+            height: t2State.bgImage.height,
+            scale: t2State.bgImage.scale || 1.0,
+            baseWidth: t2State.bgImage.baseWidth || 1160,
+            baseHeight: t2State.bgImage.baseHeight || 742
+          };
         }
 
         updateSelectedObjectBadge();
@@ -2161,6 +2237,16 @@
             const h = ov.height * ov.scale;
             if (Math.abs(pos.x - (ov.x + w)) < hs && Math.abs(pos.y - (ov.y + h)) < hs) cursor = 'nwse-resize';
             else if (pos.x >= ov.x && pos.x <= ov.x + w && pos.y >= ov.y && pos.y <= ov.y + h) cursor = 'move';
+          }
+        } else if (t2State.selectedObject === 'bgImage') {
+          const bg = t2State.bgImage;
+          const w = bg.width;
+          const h = bg.height;
+          if ((Math.abs(pos.x - (bg.x + w)) < hs && Math.abs(pos.y - (bg.y + h)) < hs) ||
+              (Math.abs(pos.x - bg.x) < hs && Math.abs(pos.y - (bg.y + h)) < hs)) {
+            cursor = 'nwse-resize';
+          } else if (pos.x >= bg.x && pos.x <= bg.x + w && pos.y >= bg.y && pos.y <= bg.y + h) {
+            cursor = 'move';
           }
         }
         t2Canvas.style.cursor = cursor;
@@ -2205,6 +2291,34 @@
               document.getElementById('ovScale').value = ov.scale;
               document.getElementById('ovScaleDisplay').textContent = ov.scale + 'x';
             }
+          }
+        }
+      } else if (t2State.selectedObject === 'bgImage') {
+        const bg = t2State.bgImage;
+        if (t2State.activeHandle === 'move') {
+          bg.x = Math.round(init.x + dx);
+          bg.y = Math.round(init.y + dy);
+          const elX = document.getElementById('t2BgX');
+          if (elX) elX.value = bg.x;
+          const dispX = document.getElementById('t2BgXDisplay');
+          if (dispX) dispX.textContent = bg.x + 'px';
+
+          const elY = document.getElementById('t2BgY');
+          if (elY) elY.value = bg.y;
+          const dispY = document.getElementById('t2BgYDisplay');
+          if (dispY) dispY.textContent = bg.y + 'px';
+        } else if (t2State.activeHandle === 'br') {
+          const newW = init.width + dx;
+          if (newW > 100) {
+            const baseW = init.baseWidth || 1160;
+            const newScale = Math.max(0.3, Math.min(2.5, parseFloat((newW / baseW).toFixed(2))));
+            bg.scale = newScale;
+            bg.width = Math.round(baseW * newScale);
+            bg.height = Math.round((init.baseHeight || 742) * newScale);
+            const elScale = document.getElementById('t2BgScale');
+            if (elScale) elScale.value = Math.round(newScale * 100);
+            const dispScale = document.getElementById('t2BgScaleDisplay');
+            if (dispScale) dispScale.textContent = newScale.toFixed(1) + 'x';
           }
         }
       } else if (t2State.selectedObject === 'header' && t2State.activeHandle === 'move') {
@@ -2754,6 +2868,59 @@
 
     function flipT2BgImage() {
       t2State.bgImage.flipH = !t2State.bgImage.flipH;
+      renderT2Canvas();
+    }
+
+    function onT2BgPosChange(axis, val) {
+      const num = parseInt(val) || 0;
+      if (axis === 'x') {
+        t2State.bgImage.x = num;
+        const disp = document.getElementById('t2BgXDisplay');
+        if (disp) disp.textContent = num + 'px';
+      } else if (axis === 'y') {
+        t2State.bgImage.y = num;
+        const disp = document.getElementById('t2BgYDisplay');
+        if (disp) disp.textContent = num + 'px';
+      }
+      renderT2Canvas();
+    }
+
+    function onT2BgScaleChange(val) {
+      const scale = parseInt(val) / 100;
+      t2State.bgImage.scale = scale;
+      const baseW = t2State.bgImage.baseWidth || 1160;
+      const baseH = t2State.bgImage.baseHeight || 742;
+      t2State.bgImage.width = Math.round(baseW * scale);
+      t2State.bgImage.height = Math.round(baseH * scale);
+      const disp = document.getElementById('t2BgScaleDisplay');
+      if (disp) disp.textContent = scale.toFixed(1) + 'x';
+      renderT2Canvas();
+    }
+
+    function resetT2BgPosition() {
+      t2State.bgImage.x = -40;
+      t2State.bgImage.y = 600;
+      t2State.bgImage.scale = 1.0;
+      const baseW = t2State.bgImage.baseWidth || 1160;
+      const baseH = t2State.bgImage.baseHeight || 742;
+      t2State.bgImage.width = baseW;
+      t2State.bgImage.height = baseH;
+
+      const elX = document.getElementById('t2BgX');
+      if (elX) elX.value = -40;
+      const dispX = document.getElementById('t2BgXDisplay');
+      if (dispX) dispX.textContent = '-40px';
+
+      const elY = document.getElementById('t2BgY');
+      if (elY) elY.value = 600;
+      const dispY = document.getElementById('t2BgYDisplay');
+      if (dispY) dispY.textContent = '600px';
+
+      const elScale = document.getElementById('t2BgScale');
+      if (elScale) elScale.value = 100;
+      const dispScale = document.getElementById('t2BgScaleDisplay');
+      if (dispScale) dispScale.textContent = '1.0x';
+
       renderT2Canvas();
     }
 
